@@ -1,39 +1,90 @@
- // Banco de dados simples com orientações extras
-const dicasAdicionais = [
-    "Em caso de dúvida sobre um boleto ou cobrança, ligue para o seu filho, neto ou vá direto à agência bancária antes de pagar.",
-    "Nunca instale aplicativos no celular se alguém que você não conhece pediu por telefone.",
-    "Se um site parecer muito confuso ou cheio de anúncios piscando na tela, prefira fechar a página.",
-    "Computadores públicos (como em hotéis ou lan houses) não devem ser usados para acessar contas do banco.",
-    "Lembre-se: nenhum funcionário de banco vai até a sua casa buscar o seu cartão magnético ou senha!"
-];
+ document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Elementos da Interface
+    const btnAumentar = document.getElementById("btn-aumentar");
+    const btnDiminuir = document.getElementById("btn-diminuir");
+    const btnContraste = document.getElementById("btn-contraste");
+    const campoBusca = document.getElementById("campo-busca");
+    const cartoesDicas = document.querySelectorAll(".cartao-dica");
+    const mensagemVazia = document.getElementById("mensagem-vazia");
+    const btnNovaDica = document.getElementById("btn-nova-dica");
+    const textoDicaDinamica = document.getElementById("texto-dica-dinamica");
 
-// Selecionando os elementos da página
-const textoDica = document.getElementById("texto-dica");
-const btnNovaDica = document.getElementById("btn-nova-dica");
-const btnAumentar = document.getElementById("btn-aumentar");
-const btnDiminuir = document.getElementById("btn-diminuir");
+    // 2. Banco de Dados de Dicas Adicionais
+    const maisDicas = [
+        "Antivírus ativo: Mantenha o sistema do seu celular e computador atualizado. Essas atualizações fecham portas para os invasores.",
+        "Cuidado com promessas de aposentadoria ou revisão de benefício por mensagens de desconhecidos. Busque sempre canais oficiais como o Meu INSS.",
+        "Verificação em duas etapas: Ative essa proteção no seu WhatsApp. Ela impede que criminosos clonem seu aplicativo mesmo se eles conseguirem o seu código.",
+        "Se um amigo ou parente pedir dinheiro emprestado de forma repentina pelo WhatsApp, ligue para ele por chamada comum para confirmar se é ele mesmo.",
+        "Evite usar redes de Wi-Fi públicas e abertas (como de praças ou rodoviárias) para acessar o aplicativo do banco."
+    ];
 
-// Configuração do tamanho de fonte padrão
-let tamanhoFonteAtual = 19;
+    // 3. Controle de Tamanho de Fonte (Persistente)
+    let tamanhoFonte = parseInt(localStorage.getItem("tamanhoFonte")) || 20;
+    document.body.style.fontSize = tamanhoFonte + "px";
 
-// Ação de sortear uma dica aleatória
-btnNovaDica.addEventListener("click", () => {
-    const indiceAleatorio = Math.floor(Math.random() * dicasAdicionais.length);
-    textoDica.textContent = dicasAdicionais[indiceAleatorio];
-});
+    btnAumentar.addEventListener("click", () => {
+        if (tamanhoFonte < 28) {
+            tamanhoFonte += 2;
+            document.body.style.fontSize = tamanhoFonte + "px";
+            localStorage.setItem("tamanhoFonte", tamanhoFonte);
+        }
+    });
 
-// Ação de Aumentar a Letra
-btnAumentar.addEventListener("click", () => {
-    if (tamanhoFonteAtual < 28) { // Limite máximo para não desconfigurar o design
-        tamanhoFonteAtual += 2;
-        document.body.style.fontSize = tamanhoFonteAtual + "px";
+    btnDiminuir.addEventListener("click", () => {
+        if (tamanhoFonte > 16) {
+            tamanhoFonte -= 2;
+            document.body.style.fontSize = tamanhoFonte + "px";
+            localStorage.setItem("tamanhoFonte", tamanhoFonte);
+        }
+    });
+
+    // 4. Controle de Alto Contraste (Persistente)
+    if (localStorage.getItem("altoContraste") === "ativo") {
+        document.body.classList.add("alto-contraste");
     }
-});
 
-// Ação de Diminuir a Letra
-btnDiminuir.addEventListener("click", () => {
-    if (tamanhoFonteAtual > 16) { // Limite mínimo aceitável
-        tamanhoFonteAtual -= 2;
-        document.body.style.fontSize = tamanhoFonteAtual + "px";
-    }
+    btnContraste.addEventListener("click", () => {
+        document.body.classList.toggle("alto-contraste");
+        
+        if (document.body.classList.contains("alto-contraste")) {
+            localStorage.setItem("altoContraste", "ativo");
+        } else {
+            localStorage.setItem("altoContraste", "inativo");
+        }
+    });
+
+    // 5. Sistema de Filtro/Busca Inteligente
+    campoBusca.addEventListener("input", (e) => {
+        const termoBusca = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let cartoesVisiveis = 0;
+
+        cartoesDicas.forEach(cartao => {
+            const textoCartao = cartao.textContent.toLowerCase();
+            const tagsCartao = cartao.getAttribute("data-tags").toLowerCase();
+            
+            // Combina conteúdo e tags puras sem acentos para uma busca fácil
+            const tudoAgrupado = (textoCartao + " " + tagsCartao).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            if (tudoAgrupado.includes(termoBusca)) {
+                cartao.style.display = "flex";
+                cartoesVisiveis++;
+            } else {
+                cartao.style.display = "none";
+            }
+        });
+
+        // Mostra mensagem se nada for encontrado
+        if (cartoesVisiveis === 0) {
+            mensagemVazia.style.display = "block";
+        } else {
+            mensagemVazia.style.display = "none";
+        }
+    });
+
+    // 6. Sorteador de Dicas Extras
+    btnNovaDica.addEventListener("click", () => {
+        const itemAleatorio = Math.floor(Math.random() * maisDicas.length);
+        textoDicaDinamica.textContent = maisDicas[itemAleatorio];
+    });
 });

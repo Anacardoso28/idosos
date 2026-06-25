@@ -3,52 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navegar Seguro - Internet para a Terceira Idade</title>
+    <title>Guia Navegar Seguro - Versão Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div class="barra-acessibilidade" role="toolbar" aria-label="Ferramentas de Acessibilidade">
+        <div class="container-acessibilidade">
+            <button id="btn-aumentar" aria-label="Aumentar o tamanho do texto">Texto A+</button>
+            <button id="btn-diminuir" aria-label="Diminuir o tamanho do texto">Texto A-</button>
+            <button id="btn-contraste" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
+        </div>
+    </div>
+
     <header>
         <h1>Navegar Seguro 🌐</h1>
-        <p>Seu guia simples e prático para usar a internet com confiança!</p>
-        <div class="controles-acessibilidade">
-            <button id="btn-aumentar" aria-label="Aumentar texto">Aumentar Letra A+</button>
-            <button id="btn-diminuir" aria-label="Diminuir texto">Diminuir Letra A-</button>
-        </div>
+        <p>A internet sem segredos: aprenda a se proteger de forma simples e direta.</p>
     </header>
 
-    <main>
-        <section class="introducao">
-            <h2>A internet é para todos!</h2>
-            <p>Usar o computador ou o celular é maravilhoso para conversar com a família, ver notícias e resolver o dia a dia. Com algumas dicas simples, você pode navegar sem medo e com total segurança.</p>
+    <main class="conteudo-principal">
+        
+        <section class="secao-busca">
+            <label for="campo-busca"><strong>O que você deseja aprender hoje?</strong></label>
+            <input type="text" id="campo-busca" placeholder="Digite uma palavra (ex: senha, banco, vírus)...">
         </section>
 
-        <section class="grade-dicas">
-            <div class="cartao-dica">
-                <h3>1. Crie Senhas Fortes 🔑</h3>
-                <p>Evite usar sua data de nascimento, sequências como "123456" ou nomes de netos. Misture letras maiúsculas, números e símbolos (como @ ou #). Nunca anote suas senhas atrás do celular.</p>
+        <section class="grade-dicas" id="grade-dicas">
+            
+            <div class="cartao-dica" data-tags="senha seguranca segredo">
+                <h3>1. Senhas Fortes e Seguras 🔑</h3>
+                <p>Fuja de datas de nascimento ou sequências óbvias como "1234". Misture letras maiúsculas, números e símbolos como @ ou #. Uma boa dica é pensar em uma frase que só você conhece e usar as iniciais.</p>
             </div>
 
-            <div class="cartao-dica">
-                <h3>2. Cuidado com Links ⚠️</h3>
-                <p>Recebeu uma mensagem dizendo que você ganhou um prêmio ou que seu banco precisa atualizar os dados urgentemente? <strong>Não clique!</strong> Bancos e empresas sérias não pedem dados ou senhas por mensagem.</p>
+            <div class="cartao-dica" data-tags="link mensagem whatsapp banco">
+                <h3>2. Cuidado com Links Suspeitos ⚠️</h3>
+                <p>Recebeu uma mensagem urgente no WhatsApp dizendo que sua conta do banco vai ser bloqueada? <strong>Não clique em nada!</strong> Bancos nunca mandam links para resolver problemas urgentes por mensagem.</p>
             </div>
 
-            <div class="cartao-dica">
-                <h3>3. Olhe o Cadeado de Segurança 🔒</h3>
-                <p>Antes de digitar seus dados ou fazer compras em um site, olhe para a barra lá em cima (onde fica o nome do site). Procure pelo desenho de um <strong>cadeado fechado</strong>. Ele indica que o site é mais protegido.</p>
+            <div class="cartao-dica" data-tags="cadeado site seguranca compras">
+                <h3>3. O Desenho do Cadeado 🔒</h3>
+                <p>Sempre olhe para a barra de endereços (onde fica o nome do site). Se houver o desenho de um <strong>cadeado fechado</strong>, significa que o site protege as informações que você digita nele.</p>
             </div>
+
+            <div class="cartao-dica" data-tags="fake news noticia mentira whatsapp">
+                <h3>4. Cuidado com as Fake News 📰</h3>
+                <p>Notícias chocantes ou milagrosas demais geralmente são mentira. Antes de repassar no grupo da família, verifique se grandes jornais ou canais de TV também estão falando sobre o assunto.</p>
+            </div>
+
+            <div class="cartao-dica" data-tags="compras cartao boleto internet">
+                <h3>5. Compras Online sem Susto 🛒</h3>
+                <p>Ao comprar pela internet, prefira usar o <strong>Cartão Virtual</strong> (você gera ele no aplicativo do seu banco e ele muda de número depois, evitando fraudes). Desconfie de preços excessivamente baratos.</p>
+            </div>
+
+            <div class="cartao-dica" data-tags="ligacao telefone golpe banco">
+                <h3>6. O Golpe do Falso Funcionário 📞</h3>
+                <p>Se alguém ligar dizendo que é do seu banco e pedir para você confirmar senhas ou transferir dinheiro para "salvar a conta", desligue imediatamente. O banco nunca liga pedindo esses procedimentos.</p>
+            </div>
+
         </section>
 
-        <section class="interativo">
-            <h2>Dica Prática do Dia</h2>
-            <p id="texto-dica">Clique no botão abaixo para ver mais uma recomendação importante de segurança!</p>
-            <button id="btn-nova-dica">Ver Outra Dica</button>
+        <p id="mensagem-vazia" style="display: none; text-align: center; font-weight: bold; margin-top: 2rem;">
+            Nenhuma dica encontrada para essa pesquisa. Tente outro termo!
+        </p>
+
+        <section class="painel-interativo">
+            <h2>Dica Extra do Dia</h2>
+            <div class="caixa-dica-dinamica">
+                <p id="texto-dica-dinamica">Clique no botão abaixo para reforçar seus conhecimentos com uma nova recomendação!</p>
+            </div>
+            <button id="btn-nova-dica">Quero Outra Dica</button>
         </section>
+
     </main>
 
     <footer>
-        <p>&copy; Navegar Seguro - Criado com carinho para proteger quem a gente ama.</p>
+        <p>&copy; Navegar Seguro - Tecnologia e proteção para a melhor idade.</p>
     </footer>
 
     <script src="script.js"></script>
