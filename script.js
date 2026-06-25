@@ -1,4 +1,4 @@
-<script>
+
         // Guardamos o tamanho padrão das letras inicializado no CSS (20px)
         let tamanhoFonteAtual = 20;
 
@@ -64,4 +64,3 @@
         window.addEventListener('DOMContentLoaded', () => {
             atualizarProgresso();
         });
-    </script>
