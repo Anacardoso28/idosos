@@ -1,87 +1,39 @@
- // Guardamos o tamanho padrão das letras inicializado no CSS (20px)
-        let tamanhoFonteAtual = 20;
+ // Banco de dados simples com orientações extras
+const dicasAdicionais = [
+    "Em caso de dúvida sobre um boleto ou cobrança, ligue para o seu filho, neto ou vá direto à agência bancária antes de pagar.",
+    "Nunca instale aplicativos no celular se alguém que você não conhece pediu por telefone.",
+    "Se um site parecer muito confuso ou cheio de anúncios piscando na tela, prefira fechar a página.",
+    "Computadores públicos (como em hotéis ou lan houses) não devem ser usados para acessar contas do banco.",
+    "Lembre-se: nenhum funcionário de banco vai até a sua casa buscar o seu cartão magnético ou senha!"
+];
 
-        /**
-         * Altera dinamicamente o tamanho base da fonte da aplicação.
-         * Garante que não fique demasiado pequena para leitura nem exagere nos limites do ecrã.
-         * @param {number} delta - Quantidade de pixeis a somar ou subtrair
-         */
-        function alterarTamanhoTexto(delta) {
-            tamanhoFonteAtual += delta;
-            
-            // Limitadores saudáveis para acessibilidade de leitura
-            if (tamanhoFonteAtual < 16) {
-                tamanhoFonteAtual = 16;
-            }
-            if (tamanhoFonteAtual > 32) {
-                tamanhoFonteAtual = 32;
-            }
-            
-            // Aplicamos a alteração à variável do sistema `:root`
-            document.documentElement.style.setProperty('--tamanho-base', tamanhoFonteAtual + 'px');
-        }
+// Selecionando os elementos da página
+const textoDica = document.getElementById("texto-dica");
+const btnNovaDica = document.getElementById("btn-nova-dica");
+const btnAumentar = document.getElementById("btn-aumentar");
+const btnDiminuir = document.getElementById("btn-diminuir");
 
-        /**
-         * Monitoriza e atualiza o progresso do Checklist interativo de segurança.
-         * Atualiza a barra de progresso visual e exibe uma caixa de felicitações quando completo.
-         */
-        function atualizarProgresso() {
-            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-            const total = checkboxes.length;
-            let marcados = 0;
+// Configuração do tamanho de fonte padrão
+let tamanhoFonteAtual = 19;
 
-            checkboxes.forEach(function(item) {
-                if (item.checked) {
-                    marcados++;
-                }
-            });
+// Ação de sortear uma dica aleatória
+btnNovaDica.addEventListener("click", () => {
+    const indiceAleatorio = Math.floor(Math.random() * dicasAdicionais.length);
+    textoDica.textContent = dicasAdicionais[indiceAleatorio];
+});
 
-            // Cálculo da percentagem
-            const percentagem = Math.round((marcados / total) * 100);
+// Ação de Aumentar a Letra
+btnAumentar.addEventListener("click", () => {
+    if (tamanhoFonteAtual < 28) { // Limite máximo para não desconfigurar o design
+        tamanhoFonteAtual += 2;
+        document.body.style.fontSize = tamanhoFonteAtual + "px";
+    }
+});
 
-            // Atualização dos elementos na página
-            const barra = document.getElementById('barra-progresso');
-            const textoProgresso = document.getElementById('texto-progresso');
-            const boxSucesso = document.getElementById('box-sucesso');
-
-            if(barra) {
-                barra.style.width = percentagem + '%';
-                barra.setAttribute('aria-valuenow', percentagem);
-            }
-
-            if(textoProgresso && boxSucesso) {
-                if (marcados === 0) {
-                    textoProgresso.innerText = "Nenhum hábito marcado ainda. Vamos começar?";
-                    boxSucesso.style.display = 'none';
-                } else if (marcados < total) {
-                    textoProgresso.innerText = `Ótimo! Já pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
-                    boxSucesso.style.display = 'none';
-                } else {
-                    textoProgresso.innerText = `Excelente! Pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
-                    boxSucesso.style.display = 'block';
-                }
-            }
-        }
-
-        // JS customizado para funcionar com as novas tags detalhes/sumario
-        function initDetalhes() {
-            const sumarios = document.querySelectorAll('sumario');
-            sumarios.forEach(sumario => {
-                sumario.addEventListener('click', function() {
-                    const detalhes = this.parentElement;
-                    if(detalhes.tagName.toLowerCase() === 'detalhes') {
-                        if(detalhes.hasAttribute('open')) {
-                            detalhes.removeAttribute('open');
-                        } else {
-                            detalhes.setAttribute('open', '');
-                        }
-                    }
-                });
-            });
-        }
-
-        // Executamos uma inicialização limpa ao carregar a página
-        window.addEventListener('DOMContentLoaded', () => {
-            atualizarProgresso();
-            initDetalhes();
-        });
+// Ação de Diminuir a Letra
+btnDiminuir.addEventListener("click", () => {
+    if (tamanhoFonteAtual > 16) { // Limite mínimo aceitável
+        tamanhoFonteAtual -= 2;
+        document.body.style.fontSize = tamanhoFonteAtual + "px";
+    }
+});

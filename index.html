@@ -1,228 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Internet Segura - Dicas de Segurança para a Terceira Idade</title>
-    <!-- CSS Corrigido para a tag HEAD -->
+    <title>Navegar Seguro - Internet para a Terceira Idade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Link de Acessibilidade para Teclado -->
-    <a href="#conteudo-principal" class="pular-conteudo">Ir direto para o conteúdo principal</a>
-
-    <!-- Cabeçalho Principal -->
-    <cabecalho>
-        <div class="cabecalho-container">
-            <h1>🛡️ Guia Internet Segura</h1>
-            <p>Aprenda a navegar no computador e telemóvel com total tranquilidade e proteção.</p>
+    <header>
+        <h1>Navegar Seguro 🌐</h1>
+        <p>Seu guia simples e prático para usar a internet com confiança!</p>
+        <div class="controles-acessibilidade">
+            <button id="btn-aumentar" aria-label="Aumentar texto">Aumentar Letra A+</button>
+            <button id="btn-diminuir" aria-label="Diminuir texto">Diminuir Letra A-</button>
         </div>
-    </cabecalho>
+    </header>
 
-    <!-- Barra com Dicas de Acessibilidade do Sistema e Controlo Dinâmico por JS -->
-    <div class="barra-ajuda" role="note">
-        <span>💡 <strong>Ajustar Letra:</strong> Utilize os botões ao lado para ajustar o tamanho do texto se necessário.</span>
-        <div class="botoes-tamanho">
-            <button class="btn-tamanho" onclick="alterarTamanhoTexto(-2)" aria-label="Diminuir o tamanho do texto">A-</button>
-            <button class="btn-tamanho" onclick="alterarTamanhoTexto(2)" aria-label="Aumentar o tamanho do texto">A+</button>
-        </div>
-    </div>
+    <main>
+        <section class="introducao">
+            <h2>A internet é para todos!</h2>
+            <p>Usar o computador ou o celular é maravilhoso para conversar com a família, ver notícias e resolver o dia a dia. Com algumas dicas simples, você pode navegar sem medo e com total segurança.</p>
+        </section>
 
-    <!-- Navegação de Atalhos Rápidos -->
-    <navegacao aria-label="Menu de atalhos rápidos">
-        <ul class="menu-navegacao">
-            <li><a href="#senhas" class="btn-nav">🔑 Palavras-passe</a></li>
-            <li><a href="#golpes" class="btn-nav">⚠️ Evitar Golpes</a></li>
-            <li><a href="#whatsapp" class="btn-nav">📱 WhatsApp Seguro</a></li>
-            <li><a href="#checklist" class="btn-nav">✅ Teste a sua Segurança</a></li>
-        </ul>
-    </navegacao>
-
-    <!-- Conteúdo Principal -->
-    <principal id="conteudo-principal">
-
-        <!-- SEÇÃO 1: PALAVRAS-PASSE -->
-        <secao id="senhas" class="secao-guia">
-            <h2><span class="icone" aria-hidden="true">🔑</span> 1. Criar Palavras-passe Fortes</h2>
-            <p style="margin-bottom: 20px;">As palavras-passe são as chaves da nossa casa digital. Aprenda a criar chaves que ninguém consegue copiar.</p>
-
-            <!-- Dica 1.1 -->
-            <detalhes>
-                <sumario>Como criar uma palavra-passe fácil de lembrar e difícil de adivinhar?</sumario>
-                <div class="conteudo-dica">
-                    <p>Muitas pessoas usam datas de nascimento ou nomes de netos. Isto é perigoso porque são dados fáceis de descobrir por terceiros.</p>
-                    <p><strong>A técnica da frase secreta:</strong></p>
-                    <p>Pense numa frase simples de que goste e misture-a com números. Veja o exemplo:</p>
-                    <div class="alerta-sucesso">
-                        <strong>Exemplo Seguro:</strong> "Adoro comer bolo de chocolate!" vira <strong>Acbdc2026!</strong><br>
-                        (Pegamos na primeira letra de cada palavra e adicionamos um ano e um ponto de exclamação).
-                    </div>
-                </div>
-            </detalhes>
-
-            <!-- Dica 1.2 -->
-            <detalhes>
-                <sumario>Onde posso guardar as minhas palavras-passe com segurança?</sumario>
-                <div class="conteudo-dica">
-                    <p>O ideal é não usar a mesma palavra-passe para tudo. Mas como lembrar-se de todas?</p>
-                    <ul>
-                        <li><strong>O Caderno Físico:</strong> Guardar as palavras-passe num caderno em casa é mais seguro do que anotá-las no telemóvel! Apenas garanta que o caderno fica bem guardado num local seguro da sua casa.</li>
-                        <li><strong>Evite papéis soltos:</strong> Notas coladas no ecrã do computador (Post-it) podem ser vistas por qualquer pessoa ou perder-se facilmente.</li>
-                    </ul>
-                </div>
-            </detalhes>
-        </secao>
-
-        <!-- SEÇÃO 2: GOLPES COMUNS -->
-        <secao id="golpes" class="secao-guia">
-            <h2><span class="icone" aria-hidden="true">⚠️</span> 2. Atenção aos Golpes de Internet</h2>
-            <p style="margin-bottom: 20px;">Os criminosos usam mensagens falsas para tentar assustar-nos ou atrair-nos com falsos prémios. Saiba como identificar.</p>
-
-            <!-- Dica 2.1 -->
-            <detalhes>
-                <sumario>O golpe da "Falsa Central do Banco" ou "Conta Bloqueada"</sumario>
-                <div class="conteudo-dica">
-                    <p>Recebe uma mensagem ou chamada telefónica dizendo que houve uma compra suspeita em seu nome ou que o seu cartão de débito/crédito foi bloqueado.</p>
-                    <div class="alerta-atencao">
-                        <strong>Regra de Ouro:</strong> O seu banco <strong>NUNCA</strong> telefona a pedir a sua palavra-passe, código PIN, nem envia ninguém para recolher o seu cartão a casa.
-                    </div>
-                    <p style="margin-top: 15px;"><strong>O que fazer se receber esta chamada?</strong></p>
-                    <ol>
-                        <li>Desligue o telefone imediatamente.</li>
-                        <li>Não clique em nenhum link enviado por SMS ou mensagem.</li>
-                        <li>Ligue para o número oficial de apoio que se encontra na parte de trás do seu cartão bancário físico para confirmar.</li>
-                    </ol>
-                </div>
-            </detalhes>
-
-            <!-- Dica 2.2 -->
-            <detalhes>
-                <sumario>Como identificar um site falso de compras?</sumario>
-                <div class="conteudo-dica">
-                    <p>Ao fazer compras online, preste atenção aos seguintes pormenores:</p>
-                    <ul>
-                        <li><strong>Preços milagrosos:</strong> Se um produto que custa originalmente 1000€ está anunciado por 150€, desconfie imediatamente!</li>
-                        <li><strong>O símbolo do Cadeado:</strong> Olhe para a barra de endereços (onde fica o nome do site). Deve aparecer o ícone de um <strong>cadeado fechado</strong> 🔒. Isso indica uma ligação encriptada e segura.</li>
-                        <li><strong>Peça ajuda:</strong> Se não tiver a certeza absoluta, peça a um familiar ou amigo de confiança para analisar o site antes de introduzir os dados do seu cartão.</li>
-                    </ul>
-                </div>
-            </detalhes>
-        </secao>
-
-        <!-- SEÇÃO 3: WHATSAPP -->
-        <secao id="whatsapp" class="secao-guia">
-            <h2><span class="icone" aria-hidden="true">📱</span> 3. Proteger o seu WhatsApp</h2>
-            <p style="margin-bottom: 20px;">O WhatsApp é excelente para falar com a família, mas é também uma das aplicações mais visadas por burlões.</p>
-
-            <!-- Dica 3.1 -->
-            <detalhes>
-                <sumario>O golpe do "Familiar que mudou de número"</sumario>
-                <div class="conteudo-dica">
-                    <p>Um número desconhecido envia-lhe uma mensagem com a fotografia de um filho ou neto, dizendo: <em>"Olá, mudei de número temporariamente. Podes fazer-me uma transferência bancária ou MB WAY urgente para pagar uma conta?"</em></p>
-                    <div class="alerta-atencao">
-                        <strong>O que fazer?</strong> Nunca envie dinheiro imediatamente! Ligue primeiro para o número antigo do seu familiar (o número habitual que já tinha guardado nos contactos) para confirmar a história.
-                    </div>
-                </div>
-            </detalhes>
-
-            <!-- Dica 3.2 -->
-            <detalhes>
-                <sumario>Ative a "Verificação em Dois Passos" (Proteção Extra)</sumario>
-                <div class="conteudo-dica">
-                    <p>Esta função cria um "código secreto" de 6 números no seu WhatsApp. Com esta barreira ativa, ninguém conseguirá roubar a sua conta.</p>
-                    <p><strong>Como ativar no seu telemóvel (passo a passo):</strong></p>
-                    <ol>
-                        <li>Abra a aplicação do WhatsApp.</li>
-                        <li>Aceda às <strong>Definições</strong> (ou Ajustes).</li>
-                        <li>Toque em <strong>Conta</strong>.</li>
-                        <li>Escolha <strong>Verificação em dois passos</strong>.</li>
-                        <li>Clique em <strong>Ativar</strong> e crie um código PIN de 6 algarismos que consiga memorizar facilmente.</li>
-                    </ol>
-                </div>
-            </detalhes>
-        </secao>
-
-        <!-- SEÇÃO 4: CHECKLIST INTERATIVO -->
-        <secao id="checklist" class="secao-guia">
-            <h2><span class="icone" aria-hidden="true">✅</span> Teste de Segurança: Como estão os seus hábitos?</h2>
-            <p style="margin-bottom: 20px;">Selecione os quadrados abaixo para verificar se já navega com segurança na internet:</p>
-
-            <!-- Barra de Progresso Interativa -->
-            <span id="texto-progresso" class="texto-progresso">Marque as caixas para ver o seu progresso</span>
-            <div class="barra-progresso-container">
-                <div id="barra-progresso" class="barra-progresso" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <section class="grade-dicas">
+            <div class="cartao-dica">
+                <h3>1. Crie Senhas Fortes 🔑</h3>
+                <p>Evite usar sua data de nascimento, sequências como "123456" ou nomes de netos. Misture letras maiúsculas, números e símbolos (como @ ou #). Nunca anote suas senhas atrás do celular.</p>
             </div>
 
-            <div class="checklist">
-                <label class="checklist-item">
-                    <input type="checkbox" onchange="atualizarProgresso()">
-                    <span class="texto-checklist">Eu nunca partilho as minhas palavras-passe com desconhecidos por mensagem ou telefone.</span>
-                </label>
-
-                <label class="checklist-item">
-                    <input type="checkbox" onchange="atualizarProgresso()">
-                    <span class="texto-checklist">Se receber uma chamada suspeita do banco, desligo e contacto diretamente a minha agência.</span>
-                </label>
-
-                <label class="checklist-item">
-                    <input type="checkbox" onchange="atualizarProgresso()">
-                    <span class="texto-checklist">Eu não clico em links que prometem prémios, vales de compras ou dinheiro fácil pelo WhatsApp.</span>
-                </label>
-
-                <label class="checklist-item">
-                    <input type="checkbox" onchange="atualizarProgresso()">
-                    <span class="texto-checklist">Tenho o hábito de pedir opinião a pessoas conhecidas sempre que tenho dúvidas sobre um site.</span>
-                </label>
-
-                <label class="checklist-item">
-                    <input type="checkbox" onchange="atualizarProgresso()">
-                    <span class="texto-checklist">Evito descarregar imagens ou abrir ficheiros de contactos desconhecidos.</span>
-                </label>
+            <div class="cartao-dica">
+                <h3>2. Cuidado com Links ⚠️</h3>
+                <p>Recebeu uma mensagem dizendo que você ganhou um prêmio ou que seu banco precisa atualizar os dados urgentemente? <strong>Não clique!</strong> Bancos e empresas sérias não pedem dados ou senhas por mensagem.</p>
             </div>
 
-            <!-- Caixa de Sucesso Completo -->
-            <div id="box-sucesso" class="felicitacoes-box">
-                <h3 style="color: var(--cor-sucesso); margin-bottom: 10px;">🎉 Parabéns! Tem ótimos hábitos de segurança!</h3>
-                <p>Navegar de forma preventiva é a melhor proteção. Continue a aplicar estas regras no seu dia a dia.</p>
+            <div class="cartao-dica">
+                <h3>3. Olhe o Cadeado de Segurança 🔒</h3>
+                <p>Antes de digitar seus dados ou fazer compras em um site, olhe para a barra lá em cima (onde fica o nome do site). Procure pelo desenho de um <strong>cadeado fechado</strong>. Ele indica que o site é mais protegido.</p>
             </div>
-        </secao>
+        </section>
 
-        <!-- SEÇÃO DE AJUDA RÁPIDA -->
-        <secao class="secao-guia">
-            <h2><span class="icone" aria-hidden="true">🚨</span> Foi vítima de burla? Saiba o que fazer!</h2>
-            <p style="margin-bottom: 15px;">Manter a calma é o passo mais importante. Qualquer pessoa pode errar, e existem formas de resolver a situação de forma célere.</p>
-            
-            <div class="cartao-ajuda">
-                <h3>Siga estes 3 passos imediatos:</h3>
-                <ol style="margin-left: 25px; margin-bottom: 20px;">
-                    <li style="margin-bottom: 10px;"><strong>Contacte a sua Linha de Apoio Bancária:</strong> Se forneceu dados do cartão ou realizou um MB WAY / transferência, ligue imediatamente para o banco para cancelar cartões e bloquear movimentos.</li>
-                    <li style="margin-bottom: 10px;"><strong>Avise os seus familiares:</strong> Explique o ocorrido para que eles o possam apoiar e fiquem em alerta caso os criminosos tentem usar a sua identidade.</li>
-                    <li style="margin-bottom: 10px;"><strong>Apresente queixa na Polícia:</strong> Dirija-se à esquadra da PSP ou posto da GNR mais próximo, ou utilize o portal de Queixa Eletrónica para formalizar a denúncia.</li>
-                </ol>
+        <section class="interativo">
+            <h2>Dica Prática do Dia</h2>
+            <p id="texto-dica">Clique no botão abaixo para ver mais uma recomendação importante de segurança!</p>
+            <button id="btn-nova-dica">Ver Outra Dica</button>
+        </section>
+    </main>
 
-                <h3>Contactos Úteis de Emergência:</h3>
-                <ul class="lista-contatos">
-                    <li>
-                        <span class="contato-nome">📞 Número de Emergência Nacional (PSP / GNR)</span>
-                        <a href="tel:112" class="btn-telefone">Ligar para o 112</a>
-                    </li>
-                    <li>
-                        <span class="contato-nome">📞 Linha de Apoio ao Cidadão</span>
-                        <a href="tel:300003000" class="btn-telefone">Ligar para 300 003 000</a>
-                    </li>
-                </ul>
-            </div>
-        </secao>
+    <footer>
+        <p>&copy; Navegar Seguro - Criado com carinho para proteger quem a gente ama.</p>
+    </footer>
 
-    </principal>
-
-    <!-- Rodapé -->
-    <rodape>
-        <p>Este guia foi desenvolvido com todo o carinho para ajudar a sua navegação na internet com total segurança e autonomia.</p>
-        <p class="mensagem-final">❤️ Partilhe este guia com os seus amigos e familiares mais próximos!</p>
-        <p style="margin-top: 20px; font-size: 0.85rem; color: #a0aec0;">Guia Internet Segura © 2026</p>
-    </rodape>
     <script src="script.js"></script>
 </body>
 </html>
