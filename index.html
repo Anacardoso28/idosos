@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Navegar Seguro - Versão Pro</title>
+    <title>Guia Navegar Seguro - Versão com Modais</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
 
     <header>
         <h1>Navegar Seguro 🌐</h1>
-        <p>A internet sem segredos: aprenda a se proteger de forma simples e direta.</p>
+        <p>A internet sem segredos: clique nos cartões abaixo para entender cada dica em detalhes.</p>
     </header>
 
     <main class="conteudo-principal">
@@ -30,34 +30,40 @@
 
         <section class="grade-dicas" id="grade-dicas">
             
-            <div class="cartao-dica" data-tags="senha seguranca segredo">
+            <div class="cartao-dica" data-tags="senha seguranca segredo" data-id="senha">
                 <h3>1. Senhas Fortes e Seguras 🔑</h3>
-                <p>Fuja de datas de nascimento ou sequências óbvias como "1234". Misture letras maiúsculas, números e símbolos como @ ou #. Uma boa dica é pensar em uma frase que só você conhece e usar as iniciais.</p>
+                <p>Fuja de datas de nascimento ou sequências óbvias. Misture letras, números e símbolos.</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
-            <div class="cartao-dica" data-tags="link mensagem whatsapp banco">
+            <div class="cartao-dica" data-tags="link mensagem whatsapp banco" data-id="links">
                 <h3>2. Cuidado com Links Suspeitos ⚠️</h3>
-                <p>Recebeu uma mensagem urgente no WhatsApp dizendo que sua conta do banco vai ser bloqueada? <strong>Não clique em nada!</strong> Bancos nunca mandam links para resolver problemas urgentes por mensagem.</p>
+                <p>Recebeu uma mensagem urgente dizendo que sua conta vai ser bloqueada? Não clique!</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
-            <div class="cartao-dica" data-tags="cadeado site seguranca compras">
+            <div class="cartao-dica" data-tags="cadeado site seguranca compras" data-id="cadeado">
                 <h3>3. O Desenho do Cadeado 🔒</h3>
-                <p>Sempre olhe para a barra de endereços (onde fica o nome do site). Se houver o desenho de um <strong>cadeado fechado</strong>, significa que o site protege as informações que você digita nele.</p>
+                <p>Sempre olhe para a barra lá de cima antes de digitar seus dados em um site.</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
-            <div class="cartao-dica" data-tags="fake news noticia mentira whatsapp">
+            <div class="cartao-dica" data-tags="fake news noticia mentira whatsapp" data-id="fakenews">
                 <h3>4. Cuidado com as Fake News 📰</h3>
-                <p>Notícias chocantes ou milagrosas demais geralmente são mentira. Antes de repassar no grupo da família, verifique se grandes jornais ou canais de TV também estão falando sobre o assunto.</p>
+                <p>Notícias chocantes ou milagrosas demais enviadas em grupos geralmente são mentira.</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
-            <div class="cartao-dica" data-tags="compras cartao boleto internet">
+            <div class="cartao-dica" data-tags="compras cartao boleto internet" data-id="compras">
                 <h3>5. Compras Online sem Susto 🛒</h3>
-                <p>Ao comprar pela internet, prefira usar o <strong>Cartão Virtual</strong> (você gera ele no aplicativo do seu banco e ele muda de número depois, evitando fraudes). Desconfie de preços excessivamente baratos.</p>
+                <p>Ao comprar pela internet, prefira usar o recurso do Cartão Virtual do seu banco.</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
-            <div class="cartao-dica" data-tags="ligacao telefone golpe banco">
+            <div class="cartao-dica" data-tags="ligacao telefone golpe banco" data-id="telefone">
                 <h3>6. O Golpe do Falso Funcionário 📞</h3>
-                <p>Se alguém ligar dizendo que é do seu banco e pedir para você confirmar senhas ou transferir dinheiro para "salvar a conta", desligue imediatamente. O banco nunca liga pedindo esses procedimentos.</p>
+                <p>Se alguém ligar pedindo para confirmar senhas ou fazer transferências, desligue.</p>
+                <button class="btn-abrir-modal">Ler Explicação Completa</button>
             </div>
 
         </section>
@@ -66,15 +72,16 @@
             Nenhuma dica encontrada para essa pesquisa. Tente outro termo!
         </p>
 
-        <section class="painel-interativo">
-            <h2>Dica Extra do Dia</h2>
-            <div class="caixa-dica-dinamica">
-                <p id="texto-dica-dinamica">Clique no botão abaixo para reforçar seus conhecimentos com uma nova recomendação!</p>
-            </div>
-            <button id="btn-nova-dica">Quero Outra Dica</button>
-        </section>
-
     </main>
+
+    <div id="modal-seguranca" class="modal-overlay" aria-hidden="true" role="dialog">
+        <div class="modal-content">
+            <button id="btn-fechar-modal" class="btn-fechar">❌ Fechar Janela</button>
+            <h2 id="modal-titulo">Título Detalhado</h2>
+            <div id="modal-corpo">
+                </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; Navegar Seguro - Tecnologia e proteção para a melhor idade.</p>
