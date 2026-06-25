@@ -1,5 +1,4 @@
-
-        // Guardamos o tamanho padrão das letras inicializado no CSS (20px)
+ // Guardamos o tamanho padrão das letras inicializado no CSS (20px)
         let tamanhoFonteAtual = 20;
 
         /**
@@ -45,22 +44,44 @@
             const textoProgresso = document.getElementById('texto-progresso');
             const boxSucesso = document.getElementById('box-sucesso');
 
-            barra.style.width = percentagem + '%';
-            barra.setAttribute('aria-valuenow', percentagem);
-
-            if (marcados === 0) {
-                textoProgresso.innerText = "Nenhum hábito marcado ainda. Vamos começar?";
-                boxSucesso.style.display = 'none';
-            } else if (marcados < total) {
-                textoProgresso.innerText = `Ótimo! Já pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
-                boxSucesso.style.display = 'none';
-            } else {
-                textoProgresso.innerText = `Excelente! Pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
-                boxSucesso.style.display = 'block';
+            if(barra) {
+                barra.style.width = percentagem + '%';
+                barra.setAttribute('aria-valuenow', percentagem);
             }
+
+            if(textoProgresso && boxSucesso) {
+                if (marcados === 0) {
+                    textoProgresso.innerText = "Nenhum hábito marcado ainda. Vamos começar?";
+                    boxSucesso.style.display = 'none';
+                } else if (marcados < total) {
+                    textoProgresso.innerText = `Ótimo! Já pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
+                    boxSucesso.style.display = 'none';
+                } else {
+                    textoProgresso.innerText = `Excelente! Pratica ${marcados} de ${total} hábitos seguros (${percentagem}% concluído).`;
+                    boxSucesso.style.display = 'block';
+                }
+            }
+        }
+
+        // JS customizado para funcionar com as novas tags detalhes/sumario
+        function initDetalhes() {
+            const sumarios = document.querySelectorAll('sumario');
+            sumarios.forEach(sumario => {
+                sumario.addEventListener('click', function() {
+                    const detalhes = this.parentElement;
+                    if(detalhes.tagName.toLowerCase() === 'detalhes') {
+                        if(detalhes.hasAttribute('open')) {
+                            detalhes.removeAttribute('open');
+                        } else {
+                            detalhes.setAttribute('open', '');
+                        }
+                    }
+                });
+            });
         }
 
         // Executamos uma inicialização limpa ao carregar a página
         window.addEventListener('DOMContentLoaded', () => {
             atualizarProgresso();
+            initDetalhes();
         });

@@ -1,5 +1,4 @@
-
-     :root {
+ :root {
             --cor-fundo: #f4f7f9;
             --cor-card-fundo: #ffffff;
             --cor-texto-principal: #1a202c;
@@ -60,12 +59,14 @@
         .pular-conteudo:focus {
             top: 0;
         }
-        header {
+        
+        cabecalho {
             background-color: var(--cor-primaria);
             color: #ffffff;
             padding: 30px 20px;
             text-align: center;
             border-bottom: 8px solid var(--cor-destaque);
+            display: block;
         }
 
         .cabecalho-container {
@@ -73,14 +74,14 @@
             margin: 0 auto;
         }
 
-        header h1 {
+        cabecalho h1 {
             font-family: var(--fonte-titulo);
             font-size: 2.2rem;
             margin-bottom: 10px;
             letter-spacing: 0.5px;
         }
 
-        header p {
+        cabecalho p {
             font-size: 1.2rem;
             color: #e2e8f0;
         }
@@ -140,10 +141,11 @@
         }
 
         /* Menu de Navegação Rápida */
-        nav {
+        navegacao {
             max-width: 800px;
             margin: 30px auto 10px auto;
             padding: 0 20px;
+            display: block;
         }
 
         .menu-navegacao {
@@ -179,10 +181,12 @@
             color: #ffffff;
             transform: translateY(-2px);
         }
-        main {
+        
+        principal {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            display: block;
         }
 
         .secao-guia {
@@ -192,6 +196,7 @@
             padding: 30px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.08);
             border: 1px solid #e2e8f0;
+            display: block;
         }
 
         .secao-guia h2 {
@@ -211,21 +216,22 @@
         }
 
         /* Estilização dos Accordions (Details e Summary) */
-        details {
+        detalhes {
             background-color: #f7fafc;
             border: 2px solid #cbd5e0;
             border-radius: 12px;
             margin-bottom: 15px;
             overflow: hidden;
             transition: border-color 0.2s;
+            display: block;
         }
 
-        details[open] {
+        detalhes[open] {
             border-color: var(--cor-primaria);
             background-color: #ffffff;
         }
 
-        summary {
+        sumario {
             padding: 20px;
             font-family: var(--fonte-titulo);
             font-weight: bold;
@@ -239,12 +245,12 @@
             color: var(--cor-primaria);
         }
 
-        summary:hover {
+        sumario:hover {
             background-color: #edf2f7;
         }
 
         /* Indicador visual de abrir/fechar */
-        summary::after {
+        sumario::after {
             content: "Abrir ➕";
             font-size: 0.9rem;
             background-color: var(--cor-primaria);
@@ -254,7 +260,7 @@
             font-family: var(--fonte-titulo);
         }
 
-        details[open] summary::after {
+        detalhes[open] sumario::after {
             content: "Fechar ➖";
             background-color: var(--cor-destaque);
             color: var(--cor-primaria);
@@ -458,23 +464,25 @@
         .btn-telefone:hover {
             background-color: var(--cor-primaria-hover);
         }
-        footer {
+        
+        rodape {
             background-color: var(--cor-primaria);
             color: #ffffff;
             text-align: center;
             padding: 40px 20px;
             margin-top: 60px;
             border-top: 8px solid var(--cor-destaque);
+            display: block;
         }
 
-        footer p {
+        rodape p {
             max-width: 600px;
             margin: 0 auto 15px auto;
             font-size: 1rem;
             color: #cbd5e0;
         }
 
-        footer .mensagem-final {
+        rodape .mensagem-final {
             font-size: 1.2rem;
             color: #ffffff;
             font-family: var(--fonte-titulo);
@@ -485,7 +493,7 @@
            7. DESIGN RESPONSIVO
            ========================================================================== */
         @media (max-width: 600px) {
-            header h1 {
+            cabecalho h1 {
                 font-size: 1.8rem;
             }
 
@@ -494,7 +502,7 @@
                 border-radius: 8px;
             }
 
-            summary {
+            sumario {
                 padding: 15px;
                 font-size: 1.1rem;
                 flex-direction: column;
@@ -502,7 +510,7 @@
                 gap: 10px;
             }
 
-            summary::after {
+            sumario::after {
                 align-self: flex-end;
             }
 
