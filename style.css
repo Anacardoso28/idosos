@@ -148,6 +148,21 @@ body.alto-contraste .btn-fechar:hover {
     margin-top: 15px;
     font-size: 1.6rem;
 }
+
+/* Elementos restantes mantêm as configurações do código anterior */
+.barra-acessibilidade { background-color: var(--bg-barra); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
+.container-acessibilidade { max-width: 1000px; margin: 0 auto; display: flex; justify-content: flex-end; gap: 15px; padding: 0 20px; }
+.container-acessibilidade button { background: transparent; color: white; border: 2px solid white; padding: 8px 16px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 6px; }
+body.alto-contraste .container-acessibilidade button { color: #ffff00; border-color: #ffff00; }
+header { background-color: var(--bg-card); text-align: center; padding: 3rem 1rem; border-bottom: 3px solid var(--cor-primaria); }
+header h1 { margin: 0; font-size: 2.8rem; color: var(--cor-primaria); }
+header p { font-size: 1.3rem; color: var(--texto-secundario); max-width: 700px; margin: 1rem auto; }
+.conteudo-principal { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
+.secao-busca { background-color: var(--bg-card); padding: 20px; border-radius: 12px; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.secao-busca input { padding: 15px; font-size: 1.1rem; border: 2px solid var(--texto-secundario); border-radius: 8px; background-color: var(--bg-principal); color: var(--texto-principal); }
+.grade-dicas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+footer { text-align: center; padding: 3rem 1rem; background-color: var(--bg-barra); color: white; margin-top: 4rem; }
+
 /* --- ESTILOS DO BOTÃO DE ACESSIBILIDADE (OUVIR TEXTO) --- */
 
 #btn-ouvir-modal {
@@ -183,16 +198,3 @@ body.alto-contraste .btn-fechar:hover {
     outline: 4px solid #ffcc00; /* Borda amarela chamativa caso o idoso use a tecla TAB */
     outline-offset: 3px;
 }
-/* Elementos restantes mantêm as configurações do código anterior */
-.barra-acessibilidade { background-color: var(--bg-barra); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
-.container-acessibilidade { max-width: 1000px; margin: 0 auto; display: flex; justify-content: flex-end; gap: 15px; padding: 0 20px; }
-.container-acessibilidade button { background: transparent; color: white; border: 2px solid white; padding: 8px 16px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 6px; }
-body.alto-contraste .container-acessibilidade button { color: #ffff00; border-color: #ffff00; }
-header { background-color: var(--bg-card); text-align: center; padding: 3rem 1rem; border-bottom: 3px solid var(--cor-primaria); }
-header h1 { margin: 0; font-size: 2.8rem; color: var(--cor-primaria); }
-header p { font-size: 1.3rem; color: var(--texto-secundario); max-width: 700px; margin: 1rem auto; }
-.conteudo-principal { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
-.secao-busca { background-color: var(--bg-card); padding: 20px; border-radius: 12px; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-.secao-busca input { padding: 15px; font-size: 1.1rem; border: 2px solid var(--texto-secundario); border-radius: 8px; background-color: var(--bg-principal); color: var(--texto-principal); }
-.grade-dicas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-footer { text-align: center; padding: 3rem 1rem; background-color: var(--bg-barra); color: white; margin-top: 4rem; }
