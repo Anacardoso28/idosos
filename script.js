@@ -1,240 +1,462 @@
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // 1. Textos Detalhados para os Modais (Evita poluir a tela inicial)
-    const conteudosModais = {
-        senha: {
-            titulo: "Como criar e lembrar de senhas seguras",
-            texto: "<p>Para um idoso, decorar dezenas de senhas difíceis é um desafio. <strong>A solução ideal:</strong> pense em uma frase simples que você gosta, como: <em>'Meu gato Tom comeu 3 peixes!'</em>.</p><p>Use as iniciais e os números para formar a senha: <strong>MgTc3p!</strong>. Fica impossível para um hacker descobrir, mas muito fácil para você lembrar!</p>"
-        },
-        links: {
-            titulo: "O perigo mora nos links urgentes",
-            texto: "<p>Os criminosos tentam te assustar criando um senso de urgência falso. Eles mandam mensagens dizendo que sua aposentadoria foi suspensa ou que há uma compra suspeita no seu nome.</p><p><strong>Regra de ouro:</strong> Bloqueie o número imediatamente. Se ficar na dúvida, ligue para o seu gerente do banco ou fale com um familiar de confiança antes de fazer qualquer ação.</p>"
-        },
-        cadeado: {
-            titulo: "Entendendo a Barra de Endereços",
-            texto: "<p>O cadeado fechado significa que a comunicação entre o seu celular/computador e o site é criptografada (trancada a sete chaves). Ninguém consegue interceptar o que você digita.</p><p><strong>Atenção:</strong> Golpistas experientes conseguem colocar cadeados em páginas falsas. Portanto, além do cadeado, confira se o nome do site está escrito corretamente (ex: 'www.bb.com.br' e não 'www.bancodobrasil-seguro.com').</p>"
-        },
-        fakenews: {
-            titulo: "Como não ser enganado por notícias falsas",
-            texto: "<p>As Fake News usam títulos apelativos para gerar cliques e espalhar vírus ou golpes financeiros. Se o texto pede para você 'compartilhar com urgência com todos os seus contatos', desconfie.</p><p>Procure a mesma notícia no Google ou assista aos jornais da TV. Se nenhum canal confiável deu a notícia, ela não é verdadeira.</p>"
-        },
-        compras: {
-            titulo: "Comprando Online com Segurança máxima",
-            texto: "<p>Hoje em dia, a maioria dos aplicativos de banco oferece o <strong>Cartão Virtual</strong>. Ele é um cartão digital que muda o código de segurança (aqueles 3 números de trás) a cada poucos minutos ou após uma compra.</p><p>Usando ele, mesmo que o site de compras seja hackeado, seus dados reais do cartão físico continuam totalmente protegidos!</p>"
-        },
-        telefone: {
-            titulo: "O Golpe do Falso Motoboy ou Funcionário",
-            texto: "<p>Este é um dos golpes que mais afeta a terceira idade. Uma pessoa muito educada liga dizendo que seu cartão foi clonado. Ela pede sua senha e diz que o banco enviará um motoboy para recolher o cartão estragado.</p><p><strong>Lembre-se sempre:</strong> O banco NUNCA pede sua senha pelo telefone e NUNCA manda ninguém buscar seu cartão em casa. Se receber essa ligação, desligue na hora.</p>"
-        }
-    };
+/* --- VARIÁVEIS DE CORES E TAMANHO --- */
 
-    // 2. Elementos da Interface
-    const modal = document.getElementById("modal-seguranca");
-    const modalTitulo = document.getElementById("modal-titulo");
-    const modalCorpo = document.getElementById("modal-corpo");
-    const btnFecharModal = document.getElementById("btn-fechar-modal");
-    const botoesAbrir = document.querySelectorAll(".btn-abrir-modal");
+:root {
 
-    // 3. Funções de Abrir e Fechar o Modal
-    function abrirModal(idDica) {
-        const dados = conteudosModais[idDica];
-        if (dados) {
-            modalTitulo.textContent = dados.titulo;
-            modalCorpo.innerHTML = dados.texto;
-            modal.classList.add("ativo");
-            modal.setAttribute("aria-hidden", "false");
-            btnFecharModal.focus(); // Joga o foco visual no botão fechar por acessibilidade
-        }
-    }
+    --bg-principal: #f0f4f8;
 
-    function fecharModal() {
-        modal.classList.remove("ativo");
-        modal.setAttribute("aria-hidden", "true");
-    }
+    --bg-card: #ffffff;
 
-    // Ouvintes para os botões dos cartões
-    botoesAbrir.forEach(botao => {
-        botao.addEventListener("click", (e) => {
-            const card = e.target.closest(".cartao-dica");
-            const idDica = card.getAttribute("data-id");
-            abrirModal(idDica);
-        });
-    });
+    --texto-principal: #1a202c;
 
-    // Fechar ao clicar no botão "Fechar Janela"
-    btnFecharModal.addEventListener("click", fecharModal);
+    --texto-secundario: #4a5568;
 
-    // Fechar ao clicar na área escura fora da caixinha branca
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            fecharModal();
-        }
-    });
+    --cor-primaria: #0056b3;
 
-    // Fechar se apertar a tecla 'Esc' do teclado
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("ativo")) {
-            fecharModal();
-        }
-    });
+    --cor-primaria-hover: #004494;
 
-    // --- MANUTENÇÃO DOS RECURSOS ANTERIORES (BUSCA, CONTRASTE E FONTE) ---
-    const btnAumentar = document.getElementById("btn-aumentar");
-    const btnDiminuir = document.getElementById("btn-diminuir");
-    const btnContraste = document.getElementById("btn-contraste");
-    const campoBusca = document.getElementById("campo-busca");
-    const cartoesDicas = document.querySelectorAll(".cartao-dica");
-    const mensagemVazia = document.getElementById("mensagem-vazia");
+    --cor-destaque: #d97706;
 
-    let tamanhoFonte = parseInt(localStorage.getItem("tamanhoFonte")) || 20;
-    document.body.style.fontSize = tamanhoFonte + "px";
+    --cor-sucesso: #16a34a;
 
-    btnAumentar.addEventListener("click", () => {
-        if (tamanhoFonte < 28) {
-            tamanhoFonte += 2;
-            document.body.style.fontSize = tamanhoFonte + "px";
-            localStorage.setItem("tamanhoFonte", tamanhoFonte);
-        }
-    });
+    --bg-barra: #2d3748;
 
-    btnDiminuir.addEventListener("click", () => {
-        if (tamanhoFonte > 16) {
-            tamanhoFonte -= 2;
-            document.body.style.fontSize = tamanhoFonte + "px";
-            localStorage.setItem("tamanhoFonte", tamanhoFonte);
-        }
-    });
+    --borda-foco: #2563eb;
 
-    if (localStorage.getItem("altoContraste") === "ativo") {
-        document.body.classList.add("alto-contraste");
-    }
+    --overlay-cor: rgba(0, 0, 0, 0.6);
 
-    btnContraste.addEventListener("click", () => {
-        document.body.classList.toggle("alto-contraste");
-        localStorage.setItem("altoContraste", document.body.classList.contains("alto-contraste") ? "ativo" : "inativo");
-    });
+    --tamanho-base: 16px; /* Para controle de zoom */
 
-    campoBusca.addEventListener("input", (e) => {
-        const termoBusca = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        let cartoesVisiveis = 0;
-
-        cartoesDicas.forEach(cartao => {
-            const textoCartao = cartao.textContent.toLowerCase();
-            const tagsCartao = cartao.getAttribute("data-tags").toLowerCase();
-            const tudoAgrupado = (textoCartao + " " + tagsCartao).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-            if (tudoAgrupado.includes(termoBusca)) {
-                cartao.style.display = "flex";
-                cartoesVisiveis++;
-            } else {
-                cartao.style.display = "none";
-            }
-        });
-// --- SISTEMA DE LEITURA DE VOZ (TEXT-TO-SPEECH) ---
-    const btnOuvirModal = document.getElementById("btn-ouvir-modal");
-    let sinteseDeVoz = window.speechSynthesis;
-
-    // Função para ler o texto em voz alta
-    function lerTexto(texto) {
-        // Cancela qualquer fala que esteja acontecendo antes de começar uma nova
-        if (sinteseDeVoz.speaking) {
-            sinteseDeVoz.cancel();
-        }
-
-        // Remove as tags de HTML (<p>, <strong>, etc) para o robô não ler elas em voz alta
-        const textoLimpo = texto.replace(/<[^>]*>?/gm, '');
-
-        const fala = new SpeechSynthesisUtterance(textoLimpo);
-        fala.lang = 'pt-BR'; // Define o idioma para Português do Brasil
-        fala.rate = 0.9;     // Deixa a voz um pouquinho mais lenta para facilitar o entendimento
-        fala.pitch = 1;      // Tom de voz normal
-
-        sinteseDeVoz.speak(fala);
-    }
-
-    // Quando clicar no botão "Ouvir Texto" do modal
-    btnOuvirModal.addEventListener("click", () => {
-        // Ele vai juntar o título e o corpo do texto do modal para ler tudo
-        const textoCompleto = modalTitulo.textContent + ". " + modalCorpo.innerHTML;
-        lerTexto(textoCompleto);
-    });
-
-    // É importante fazer a voz parar de falar se o usuário fechar o modal no meio da leitura
-    btnFecharModal.addEventListener("click", () => {
-        fecharModal();
-        sinteseDeVoz.cancel(); // Para a voz
-    });
-
-    // Fazer a voz parar se fechar clicando fora do modal
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            fecharModal();
-            sinteseDeVoz.cancel(); // Para a voz
-        }
-    });
-
-    // Fazer a voz parar se apertar a tecla ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("ativo")) {
-            fecharModal();
-            sinteseDeVoz.cancel(); // Para a voz
-        }
-    });
-        mensagemVazia.style.display = cartoesVisiveis === 0 ? "block" : "none";
-    });
-    
-    // --- NOVO: SISTEMA DE DESCRIÇÃO GERAL DO SITE ---
-const btnDescreverSite = document.getElementById("btn-descrever-site");
-
-// O navegador precisa carregar as vozes assincronamente.
-// Esta função procura por vozes femininas brasileiras comuns.
-function obterVozFemininaPTBR() {
-const vozesDisponiveis = sinteseDeVoz.getVoices();
-
-// Filtra apenas vozes em Português do Brasil
-const vozesBr = vozesDisponiveis.filter(voz => voz.lang === 'pt-BR' || voz.lang === 'pt_BR');
-
-// Busca por nomes que indicam vozes femininas padrão do Windows, Google ou Apple
-let vozFeminina = vozesBr.find(voz =>
-voz.name.includes('Google') || // Geralmente feminina no Chrome
-voz.name.includes('Maria') || // Windows
-voz.name.includes('Luciana') || // Apple/iOS
-voz.name.includes('Vitoria')
-);
-
-// Se não encontrar uma específica, retorna a primeira voz pt-BR disponível
-return vozFeminina || vozesBr[0];
 }
 
-// Tenta carregar as vozes assim que estiverem prontas
-sinteseDeVoz.onvoiceschanged = obterVozFemininaPTBR;
 
-btnDescreverSite.addEventListener("click", () => {
-// Se já estiver falando, para a voz e não faz mais nada (funciona como um botão Liga/Desliga)
-if (sinteseDeVoz.speaking) {
-sinteseDeVoz.cancel();
-return;
+
+/* --- MODO ALTO CONTRASTE --- */
+
+body.alto-contraste {
+
+    --bg-principal: #000000;
+
+    --bg-card: #121212;
+
+    --texto-principal: #ffff00;
+
+    --texto-secundario: #ffffff;
+
+    --cor-primaria: #000000;
+
+    --cor-primaria-hover: #333333;
+
+    --cor-destaque: #ffff00;
+
+    --cor-sucesso: #00ff00;
+
+    --bg-barra: #1a1a1a;
+
+    --borda-foco: #ffff00;
+
+    --overlay-cor: rgba(255, 255, 255, 0.2);
+
 }
 
-// O texto que o robô vai ler apresentando o site
-const textoDescricao = "Bem-vindo ao Guia Navegar Seguro. Este site foi feito para ajudar você a usar a internet sem segredos. Logo abaixo, há um campo de busca onde você pode digitar o que deseja aprender. Em seguida, temos seis cartões com dicas importantes de segurança, como: senhas fortes, links suspeitos, compras online e golpes pelo telefone. Clique no botão 'Ler Explicação Completa' em qualquer um dos cartões para abrir os detalhes de cada dica.";
 
-const falaDescricao = new SpeechSynthesisUtterance(textoDescricao);
 
-// Configurações da voz
-falaDescricao.lang = 'pt-BR';
-falaDescricao.rate = 0.95; // Velocidade um pouco mais lenta e agradável
-falaDescricao.pitch = 1.1; // Aumentar levemente o "pitch" ajuda a voz a soar mais fina/feminina
+body.alto-contraste button, body.alto-contraste header {
 
-// Aplica a voz feminina encontrada
-const vozEscolhida = obterVozFemininaPTBR();
-if (vozEscolhida) {
-falaDescricao.voice = vozEscolhida;
+    border: 2px solid #ffff00;
+
+    color: #ffff00;
+
 }
 
-// Inicia a leitura
-sinteseDeVoz.speak(falaDescricao);
-});
 
-});  
+
+body.alto-contraste .card {
+
+    border: 2px solid #ffff00;
+
+}
+
+
+
+/* --- RESET E BASE --- */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+
+body {
+
+    font-family: system-ui, -apple-system, sans-serif;
+
+    background-color: var(--bg-principal);
+
+    color: var(--texto-principal);
+
+    font-size: var(--tamanho-base);
+
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s;
+
+}
+
+
+
+*:focus {
+
+    outline: 3px solid var(--borda-foco);
+
+    outline-offset: 2px;
+
+}
+
+
+
+/* --- BARRA DE ACESSIBILIDADE --- */
+
+.barra-acessibilidade {
+
+    background-color: var(--bg-barra);
+
+    padding: 10px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+}
+
+
+
+.container-acessibilidade {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    justify-content: center;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+
+
+.container-acessibilidade button {
+
+    background-color: #ffffff;
+
+    color: #1a202c;
+
+    border: none;
+
+    padding: 8px 16px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    transition: transform 0.1s;
+
+}
+
+
+
+.container-acessibilidade button:active {
+
+    transform: scale(0.95);
+
+}
+
+
+
+/* --- CABEÇALHO --- */
+
+header {
+
+    text-align: center;
+
+    padding: 2rem 1rem;
+
+    background-color: var(--cor-primaria);
+
+    color: white;
+
+    margin-bottom: 2rem;
+
+}
+
+
+
+header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+header p { font-size: 1.2rem; }
+
+
+
+/* --- CONTEÚDO E BUSCA --- */
+
+.conteudo-principal {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 0 1rem;
+
+}
+
+
+
+.secao-busca {
+
+    text-align: center;
+
+    margin-bottom: 2rem;
+
+    background-color: var(--bg-card);
+
+    padding: 1.5rem;
+
+    border-radius: 8px;
+
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+}
+
+
+
+.secao-busca label {
+
+    display: block;
+
+    font-size: 1.2rem;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.secao-busca input {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 12px;
+
+    font-size: 1.1rem;
+
+    border: 2px solid #ccc;
+
+    border-radius: 6px;
+
+}
+
+
+
+/* --- CARTÕES (GRID) --- */
+
+.grid-dicas {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+
+.card {
+
+    background-color: var(--bg-card);
+
+    border-radius: 10px;
+
+    padding: 1.5rem;
+
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition: transform 0.2s;
+
+}
+
+
+
+.card:hover { transform: translateY(-5px); }
+
+.card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--cor-primaria); }
+
+.card p { margin-bottom: 15px; color: var(--texto-secundario); flex-grow: 1; line-height: 1.5; }
+
+
+
+.btn-abrir-modal {
+
+    background-color: var(--cor-destaque);
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    width: 100%;
+
+}
+
+
+
+/* --- MODAL --- */
+
+.modal-overlay {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0; left: 0; width: 100%; height: 100%;
+
+    background-color: var(--overlay-cor);
+
+    z-index: 1000;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 1rem;
+
+}
+
+
+
+.modal-overlay.ativo {
+
+    display: flex;
+
+}
+
+
+
+.modal-content {
+
+    background-color: var(--bg-card);
+
+    padding: 2rem;
+
+    border-radius: 12px;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+
+
+.btn-fechar {
+
+    background-color: #ef4444;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    float: right;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+#modal-titulo { color: var(--cor-primaria); margin-bottom: 15px; font-size: 1.8rem; }
+
+
+
+.btn-acessibilidade {
+
+    background-color: var(--cor-primaria);
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    margin-bottom: 20px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+#modal-corpo { font-size: 1.1rem; line-height: 1.6; }
+
+#modal-corpo p { margin-bottom: 15px; }
+
+
+
+footer { text-align: center; padding: 2rem 1rem; background-color: var(--bg-barra); color: white; margin-top: 3rem; }
 

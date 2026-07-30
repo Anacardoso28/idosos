@@ -1,200 +1,303 @@
-/* [Mantenha todo o CSS anterior e adicione/substitua as linhas abaixo] */
+document.addEventListener("DOMContentLoaded", () => {
 
-:root {
-    --bg-principal: #f0f4f8;
-    --bg-card: #ffffff;
-    --texto-principal: #1a202c;
-    --texto-secundario: #4a5568;
-    --cor-primaria: #0056b3;
-    --cor-destaque: #d97706;
-    --cor-sucesso: #16a34a;
-    --bg-barra: #2d3748;
-    --borda-foco: #2563eb;
-    --overlay-cor: rgba(0, 0, 0, 0.6);
-}
+    
 
-body.alto-contraste {
-    --bg-principal: #000000;
-    --bg-card: #121212;
-    --texto-principal: #ffff00;
-    --texto-secundario: #ffffff;
-    --cor-primaria: #ffff00;
-    --cor-destaque: #ffff00;
-    --cor-sucesso: #00ff00;
-    --bg-barra: #1a1a1a;
-    --borda-foco: #ffff00;
-    --overlay-cor: rgba(255, 255, 255, 0.2);
-}
+    // --- 1. DADOS DOS MODAIS ---
 
-/* Reset e Base */
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    line-height: 1.7;
-    background-color: var(--bg-principal);
-    color: var(--texto-principal);
-    margin: 0;
-    font-size: 20px;
-}
+    const conteudosModais = {
 
-/* Configuração do Card em modo Flex para alinhar o botão no final */
-.cartao-dica {
-    background-color: var(--bg-card);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-top: 6px solid var(--cor-destaque);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Garante o botão embaixo */
-    gap: 15px;
-}
+        senha: {
 
-/* Botão de abrir o Modal */
-.btn-abrir-modal {
-    background-color: var(--cor-primaria);
-    color: white;
-    border: 2px solid var(--cor-primaria);
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-    width: 100%;
-}
+            titulo: "Como criar e lembrar de senhas seguras",
 
-body.alto-contraste .btn-abrir-modal {
-    color: #000000;
-    background-color: #ffff00;
-}
+            texto: "<p>Para decorar senhas difíceis, <strong>a solução ideal:</strong> pense em uma frase simples que você gosta, como: <em>'Meu neto tem 10 anos'</em>.</p><p>Use as iniciais e os números para formar a senha: <strong>Mnt10a!</strong>. Fica impossível para um hacker descobrir, mas muito fácil para você lembrar!</p>"
 
-.btn-abrir-modal:hover {
-    opacity: 0.9;
-}
+        },
 
-/* --- ESTILOS DO MODAL --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--overlay-cor);
-    display: none; /* Escondido por padrão */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    padding: 20px;
-    box-sizing: border-box;
-    backdrop-filter: blur(4px); /* Suaviza o fundo */
-}
+        links: {
 
-/* Classe ativa que o JavaScript vai aplicar */
-.modal-overlay.ativo {
-    display: flex;
-}
+            titulo: "O perigo mora nos links urgentes",
 
-.modal-content {
-    background-color: var(--bg-card);
-    color: var(--texto-principal);
-    padding: 40px 30px;
-    border-radius: 16px;
-    max-width: 650px;
-    width: 100%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    position: relative;
-    border: 4px solid var(--cor-primaria);
-    animation: surgimento 0.25s ease-out;
-}
+            texto: "<p>Os criminosos tentam assustar criando um falso senso de urgência. Eles mandam mensagens dizendo que sua conta foi bloqueada ou que há uma compra suspeita.</p><p><strong>Regra de ouro:</strong> Nunca clique em links azuis enviados por números desconhecidos. Na dúvida, ligue para o seu gerente usando o número oficial do cartão.</p>"
 
-@keyframes surgimento {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
+        },
 
-/* Botão de fechar super visível */
-.btn-fechar {
-    position: absolute;
-    top: -20px;
-    right: 10px;
-    background-color: #dc3545;
-    color: white;
-    border: 2px solid white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+        cadeado: {
 
-body.alto-contraste .btn-fechar {
-    background-color: #000000;
-    color: #ff0000;
-    border-color: #ff0000;
-}
+            titulo: "Entendendo a Barra de Endereços",
 
-.btn-fechar:hover {
-    background-color: #bd2130;
-}
+            texto: "<p>O cadeado fechado significa que a comunicação entre o seu celular e o site é trancada a sete chaves. Ninguém consegue interceptar o que você digita.</p><p><strong>Atenção:</strong> Apesar disso, golpistas conseguem colocar cadeados em páginas falsas. Preste atenção no nome do site escrito ali em cima.</p>"
 
-body.alto-contraste .btn-fechar:hover {
-    background-color: #ff0000;
-    color: #000000;
-}
+        },
 
-#modal-titulo {
-    color: var(--cor-primaria);
-    margin-top: 15px;
-    font-size: 1.6rem;
-}
+        compras: {
 
-/* Elementos restantes mantêm as configurações do código anterior */
-.barra-acessibilidade { background-color: var(--bg-barra); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
-.container-acessibilidade { max-width: 1000px; margin: 0 auto; display: flex; justify-content: flex-end; gap: 15px; padding: 0 20px; }
-.container-acessibilidade button { background: transparent; color: white; border: 2px solid white; padding: 8px 16px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 6px; }
-body.alto-contraste .container-acessibilidade button { color: #ffff00; border-color: #ffff00; }
-header { background-color: var(--bg-card); text-align: center; padding: 3rem 1rem; border-bottom: 3px solid var(--cor-primaria); }
-header h1 { margin: 0; font-size: 2.8rem; color: var(--cor-primaria); }
-header p { font-size: 1.3rem; color: var(--texto-secundario); max-width: 700px; margin: 1rem auto; }
-.conteudo-principal { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
-.secao-busca { background-color: var(--bg-card); padding: 20px; border-radius: 12px; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-.secao-busca input { padding: 15px; font-size: 1.1rem; border: 2px solid var(--texto-secundario); border-radius: 8px; background-color: var(--bg-principal); color: var(--texto-principal); }
-.grade-dicas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-footer { text-align: center; padding: 3rem 1rem; background-color: var(--bg-barra); color: white; margin-top: 4rem; }
+            titulo: "Dicas para Compras Online",
 
-/* --- ESTILOS DO BOTÃO DE ACESSIBILIDADE (OUVIR TEXTO) --- */
+            texto: "<p>Antes de comprar, pesquise o nome da loja no site <strong>Reclame Aqui</strong> para ver se outras pessoas tiveram problemas.</p><p>Sempre prefira pagar com Cartão de Crédito Virtual ou PIX apenas se o recebedor tiver o nome exato da empresa.</p>"
 
-#btn-ouvir-modal {
-    background-color: #0056b3; /* Azul escuro que dá um ótimo contraste com a tela branca */
-    color: #ffffff; /* Letras brancas para facilitar a leitura */
-    border: none;
-    padding: 12px 24px; /* Área de clique bem espaçosa (ótimo para quem tem tremores nas mãos) */
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 8px; /* Bordas arredondadas e amigáveis */
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px; /* Espaço entre o emoji do alto-falante e a palavra */
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombreado para parecer um botão 3D */
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
+        },
 
-/* Efeito quando passa o mouse por cima */
-#btn-ouvir-modal:hover {
-    background-color: #004494; /* Fica um azul mais escuro */
-    transform: translateY(-2px); /* Dá uma leve "subidinha" */
-}
+        telefone: {
 
-/* Efeito quando a pessoa clica no botão */
-#btn-ouvir-modal:active {
-    transform: translateY(2px); /* Dá a sensação de botão sendo "afundado" */
-}
+            titulo: "Falsas Centrais Telefônicas",
 
-/* Foco de acessibilidade (muito importante para navegação por teclado) */
-#btn-ouvir-modal:focus {
-    outline: 4px solid #ffcc00; /* Borda amarela chamativa caso o idoso use a tecla TAB */
-    outline-offset: 3px;
-}
+            texto: "<p>Bancos verdadeiros <strong>nunca</strong> ligam pedindo a sua senha, nem pedem para você fazer um PIX de teste para 'cancelar uma fraude'.</p><p>Se receber uma ligação assim, desligue imediatamente e fale com um familiar.</p>"
+
+        }
+
+    };
+
+
+
+    // --- 2. ACESSIBILIDADE: VOZ (SPEECH SYNTHESIS) ---
+
+    const sintese = window.speechSynthesis;
+
+    let vozPortugues = null;
+
+
+
+    function carregarVozes() {
+
+        const vozes = sintese.getVoices();
+
+        vozPortugues = vozes.find(v => v.lang.includes('pt-BR') && (v.name.includes('Feminina') || v.name.includes('Google') || v.name.includes('Luciana'))) 
+
+                    || vozes.find(v => v.lang.includes('pt-BR'));
+
+    }
+
+    sintese.onvoiceschanged = carregarVozes;
+
+
+
+    function falarTexto(texto, botaoReferencia) {
+
+        if (sintese.speaking) {
+
+            sintese.cancel();
+
+            restaurarBotoesAudio();
+
+            return;
+
+        }
+
+
+
+        restaurarBotoesAudio(); 
+
+        
+
+        const mensagem = new SpeechSynthesisUtterance(texto);
+
+        mensagem.lang = 'pt-BR';
+
+        mensagem.rate = 0.95; 
+
+        if (vozPortugues) mensagem.voice = vozPortugues;
+
+
+
+        if (botaoReferencia) {
+
+            botaoReferencia.innerHTML = "⏹️ Parar Áudio";
+
+            mensagem.onend = () => {
+
+                restaurarBotoesAudio();
+
+            };
+
+        }
+
+
+
+        sintese.speak(mensagem);
+
+    }
+
+
+
+    function restaurarBotoesAudio() {
+
+        const btnSite = document.getElementById('btn-descrever-site');
+
+        const btnModal = document.getElementById('btn-ouvir-modal');
+
+        if (btnSite) btnSite.innerHTML = "🗣️ Descrever Site";
+
+        if (btnModal) btnModal.innerHTML = "🔊 Ouvir Texto";
+
+    }
+
+
+
+    document.getElementById('btn-descrever-site').addEventListener('click', function() {
+
+        const texto = "Bem-vindo ao Guia Navegar Seguro. Este site foi feito para ajudar você a usar a internet sem segredos. Logo abaixo, há um campo de busca. Em seguida, temos cartões com dicas sobre: senhas fortes, links suspeitos, cadeados de segurança, compras online e golpes por telefone. Clique em 'Ler Explicação Completa' em qualquer cartão para saber mais.";
+
+        falarTexto(texto, this);
+
+    });
+
+
+
+    // --- 3. ACESSIBILIDADE: TAMANHO DA FONTE E CONTRASTE ---
+
+    let tamanhoAtual = 16;
+
+    
+
+    document.getElementById('btn-aumentar').addEventListener('click', () => {
+
+        if(tamanhoAtual < 24) tamanhoAtual += 2;
+
+        document.documentElement.style.setProperty('--tamanho-base', tamanhoAtual + 'px');
+
+    });
+
+
+
+    document.getElementById('btn-diminuir').addEventListener('click', () => {
+
+        if(tamanhoAtual > 14) tamanhoAtual -= 2;
+
+        document.documentElement.style.setProperty('--tamanho-base', tamanhoAtual + 'px');
+
+    });
+
+
+
+    document.getElementById('btn-contraste').addEventListener('click', () => {
+
+        document.body.classList.toggle('alto-contraste');
+
+    });
+
+
+
+    // --- 4. LÓGICA DO MODAL ---
+
+    const modal = document.getElementById('modal-seguranca');
+
+    const tituloModal = document.getElementById('modal-titulo');
+
+    const corpoModal = document.getElementById('modal-corpo');
+
+    const btnFecharModal = document.getElementById('btn-fechar-modal');
+
+    const btnOuvirModal = document.getElementById('btn-ouvir-modal');
+
+    let textoParaLerNoModal = "";
+
+
+
+    document.querySelectorAll('.btn-abrir-modal').forEach(botao => {
+
+        botao.addEventListener('click', function() {
+
+            const chave = this.getAttribute('data-chave');
+
+            const conteudo = conteudosModais[chave];
+
+
+
+            if (conteudo) {
+
+                tituloModal.innerText = conteudo.titulo;
+
+                corpoModal.innerHTML = conteudo.texto;
+
+                
+
+                textoParaLerNoModal = conteudo.titulo + ". " + corpoModal.innerText;
+
+                modal.classList.add('ativo');
+
+            }
+
+        });
+
+    });
+
+
+
+    function fecharModal() {
+
+        modal.classList.remove('ativo');
+
+        sintese.cancel();
+
+        restaurarBotoesAudio();
+
+    }
+
+    btnFecharModal.addEventListener('click', fecharModal);
+
+    
+
+    modal.addEventListener('click', function(e) {
+
+        if (e.target === this) fecharModal();
+
+    });
+
+
+
+    btnOuvirModal.addEventListener('click', function() {
+
+        falarTexto(textoParaLerNoModal, this);
+
+    });
+
+
+
+    // --- 5. LÓGICA DE BUSCA ---
+
+    const campoBusca = document.getElementById('campo-busca');
+
+    const cartoes = document.querySelectorAll('.card');
+
+    const mensagemVazia = document.getElementById('mensagem-vazia');
+
+
+
+    campoBusca.addEventListener('input', function() {
+
+        const termo = this.value.toLowerCase().trim();
+
+        let encontrouAlgo = false;
+
+
+
+        cartoes.forEach(card => {
+
+            const palavrasChave = card.getAttribute('data-termo').toLowerCase();
+
+            const titulo = card.querySelector('h3').innerText.toLowerCase();
+
+            
+
+            if (palavrasChave.includes(termo) || titulo.includes(termo)) {
+
+                card.style.display = 'flex';
+
+                encontrouAlgo = true;
+
+            } else {
+
+                card.style.display = 'none';
+
+            }
+
+        });
+
+
+
+        mensagemVazia.style.display = encontrouAlgo ? 'none' : 'block';
+
+    });
+
+);

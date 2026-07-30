@@ -1,110 +1,192 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Navegar Seguro - Versão com Modais</title>
+
+    <title>Guia Navegar Seguro</title>
+
+    <!-- Aqui chamamos o arquivo CSS -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
+
+
+    <!-- BARRA DE ACESSIBILIDADE FIXA -->
+
     <div class="barra-acessibilidade" role="toolbar" aria-label="Ferramentas de Acessibilidade">
-<div class="container-acessibilidade">
-<button id="btn-descrever-site" aria-label="Ouvir a descricao completa do site">🗣️ Descrever Site</button>
-<button id="btn-aumentar" aria-label="Aumentar o tamanho do texto">Texto A+</button>
-<button id="btn-diminuir" aria-label="Diminuir o tamanho do texto">Texto A-</button>
-<button id="btn-contraste" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
-</div>
+
+        <div class="container-acessibilidade">
+
+            <button id="btn-descrever-site" aria-label="Ouvir a descrição completa do site">🗣️ Descrever Site</button>
+
+            <button id="btn-aumentar" aria-label="Aumentar o tamanho do texto">Texto A+</button>
+
+            <button id="btn-diminuir" aria-label="Diminuir o tamanho do texto">Texto A-</button>
+
+            <button id="btn-contraste" aria-label="Alternar modo de alto contraste">🌓 Alto Contraste</button>
+
         </div>
+
     </div>
 
+
+
     <header>
+
         <h1>Navegar Seguro 🌐</h1>
-        <p>A internet sem segredos: clique nos cartões abaixo para entender cada dica em detalhes.</p>
+
+        <p>A internet sem segredos: dicas práticas para usar o celular e o computador com segurança.</p>
+
     </header>
 
+
+
     <main class="conteudo-principal">
+
         
+
         <section class="secao-busca">
+
             <label for="campo-busca"><strong>O que você deseja aprender hoje?</strong></label>
+
             <input type="text" id="campo-busca" placeholder="Digite uma palavra (ex: senha, banco, vírus)...">
+
         </section>
 
-        <section class="grade-dicas" id="grade-dicas">
+
+
+        <!-- CARTÕES DE CONTEÚDO -->
+
+        <section class="grid-dicas" id="lista-cartoes">
+
             
-            <div class="cartao-dica" data-tags="senha seguranca segredo" data-id="senha">
-                <h3>1. Senhas Fortes e Seguras 🔑</h3>
-                <p>Fuja de datas de nascimento ou sequências óbvias. Misture letras, números e símbolos.</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
+
+            <div class="card" data-termo="senha senhas segurança">
+
+                <h3>🔐 Senhas Seguras</h3>
+
+                <p>Como criar uma senha fácil de lembrar, mas impossível de ser descoberta pelos criminosos.</p>
+
+                <button class="btn-abrir-modal" data-chave="senha">Ler Explicação Completa</button>
+
             </div>
 
-            <div class="cartao-dica" data-tags="link mensagem whatsapp banco" data-id="links">
-                <h3>2. Cuidado com Links Suspeitos ⚠️</h3>
-                <p>Recebeu uma mensagem urgente dizendo que sua conta vai ser bloqueada? Não clique!</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
+
+
+            <div class="card" data-termo="links mensagem zap whatsapp sms falso">
+
+                <h3>🚫 Links Falsos (WhatsApp/SMS)</h3>
+
+                <p>Recebeu uma mensagem urgente do banco pedindo para clicar? Aprenda a identificar armadilhas.</p>
+
+                <button class="btn-abrir-modal" data-chave="links">Ler Explicação Completa</button>
+
             </div>
 
-            <div class="cartao-dica" data-tags="cadeado site seguranca compras" data-id="cadeado">
-                <h3>3. O Desenho do Cadeado 🔒</h3>
-                <p>Sempre olhe para a barra lá de cima antes de digitar seus dados em um site.</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
+
+
+            <div class="card" data-termo="cadeado site seguro endereço">
+
+                <h3>🔒 O Cadeado do Navegador</h3>
+
+                <p>O que significa aquele cadeado ao lado do endereço do site? Ele garante que a página é verdadeira?</p>
+
+                <button class="btn-abrir-modal" data-chave="cadeado">Ler Explicação Completa</button>
+
             </div>
 
-            <div class="cartao-dica" data-tags="fake news noticia mentira whatsapp" data-id="fakenews">
-                <h3>4. Cuidado com as Fake News 📰</h3>
-                <p>Notícias chocantes ou milagrosas demais enviadas em grupos geralmente são mentira.</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
+            
+
+            <div class="card" data-termo="compras online cartão boleto">
+
+                <h3>🛒 Compras Online</h3>
+
+                <p>Dicas de ouro antes de colocar os dados do seu cartão de crédito em uma loja na internet.</p>
+
+                <button class="btn-abrir-modal" data-chave="compras">Ler Explicação Completa</button>
+
             </div>
 
-            <div class="cartao-dica" data-tags="compras cartao boleto internet" data-id="compras">
-                <h3>5. Compras Online sem Susto 🛒</h3>
-                <p>Ao comprar pela internet, prefira usar o recurso do Cartão Virtual do seu banco.</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
+
+
+            <div class="card" data-termo="telefone chamada golpe banco">
+
+                <h3>☎️ Golpes por Telefone</h3>
+
+                <p>Se alguém ligar dizendo ser do banco e pedir transferências ou senhas, saiba o que fazer.</p>
+
+                <button class="btn-abrir-modal" data-chave="telefone">Ler Explicação Completa</button>
+
             </div>
 
-            <div class="cartao-dica" data-tags="ligacao telefone golpe banco" data-id="telefone">
-                <h3>6. O Golpe do Falso Funcionário 📞</h3>
-                <p>Se alguém ligar pedindo para confirmar senhas ou fazer transferências, desligue.</p>
-                <button class="btn-abrir-modal">Ler Explicação Completa</button>
-            </div>
+
 
         </section>
+
+
 
         <p id="mensagem-vazia" style="display: none; text-align: center; font-weight: bold; margin-top: 2rem;">
-            Nenhuma dica encontrada para essa pesquisa. Tente outro termo!
+
+            Nenhuma dica encontrada para essa pesquisa. Tente outra palavra!
+
         </p>
+
+
 
     </main>
 
+
+
+    <!-- MODAL ÚNICO -->
+
     <div id="modal-seguranca" class="modal-overlay" aria-hidden="true" role="dialog">
+
         <div class="modal-content">
-            <button id="btn-fechar-modal" class="btn-fechar">❌ Fechar Janela</button>
+
+            <button id="btn-fechar-modal" class="btn-fechar">❌ Fechar</button>
+
             <h2 id="modal-titulo">Título Detalhado</h2>
-            <div id="modal-corpo">
-                </div>
-        </div>
-        
-    </div>
-<div id="modal-seguranca" class="modal-overlay" aria-hidden="true" role="dialog">
-        <div class="modal-content">
-            <button id="btn-fechar-modal" class="btn-fechar">❌ Fechar Janela</button>
-            <h2 id="modal-titulo">Título Detalhado</h2>
+
             
-            <button id="btn-ouvir-modal" class="btn-acessibilidade" style="margin-bottom: 15px; cursor: pointer;">
-                🔊 Ouvir Texto
-            </button>
+
+            <button id="btn-ouvir-modal" class="btn-acessibilidade">🔊 Ouvir Texto</button>
+
             
+
             <div id="modal-corpo">
+
+                <!-- O conteúdo entra aqui via JavaScript -->
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <footer>
-        <p>&copy; Navegar Seguro - Tecnologia e proteção para a melhor idade.
-            Ana Julia Cardoso 
-        </p>
+
+        <p>&copy; Navegar Seguro - Tecnologia e proteção para a Terceira Idade.</p>
+
     </footer>
 
+
+
+    <!-- Aqui chamamos o arquivo JavaScript -->
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
+
