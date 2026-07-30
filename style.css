@@ -148,7 +148,41 @@ body.alto-contraste .btn-fechar:hover {
     margin-top: 15px;
     font-size: 1.6rem;
 }
+/* --- ESTILOS DO BOTÃO DE ACESSIBILIDADE (OUVIR TEXTO) --- */
 
+#btn-ouvir-modal {
+    background-color: #0056b3; /* Azul escuro que dá um ótimo contraste com a tela branca */
+    color: #ffffff; /* Letras brancas para facilitar a leitura */
+    border: none;
+    padding: 12px 24px; /* Área de clique bem espaçosa (ótimo para quem tem tremores nas mãos) */
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px; /* Bordas arredondadas e amigáveis */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre o emoji do alto-falante e a palavra */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombreado para parecer um botão 3D */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* Efeito quando passa o mouse por cima */
+#btn-ouvir-modal:hover {
+    background-color: #004494; /* Fica um azul mais escuro */
+    transform: translateY(-2px); /* Dá uma leve "subidinha" */
+}
+
+/* Efeito quando a pessoa clica no botão */
+#btn-ouvir-modal:active {
+    transform: translateY(2px); /* Dá a sensação de botão sendo "afundado" */
+}
+
+/* Foco de acessibilidade (muito importante para navegação por teclado) */
+#btn-ouvir-modal:focus {
+    outline: 4px solid #ffcc00; /* Borda amarela chamativa caso o idoso use a tecla TAB */
+    outline-offset: 3px;
+}
 /* Elementos restantes mantêm as configurações do código anterior */
 .barra-acessibilidade { background-color: var(--bg-barra); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
 .container-acessibilidade { max-width: 1000px; margin: 0 auto; display: flex; justify-content: flex-end; gap: 15px; padding: 0 20px; }
