@@ -182,4 +182,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
         mensagemVazia.style.display = cartoesVisiveis === 0 ? "block" : "none";
     });
-});
+});  
