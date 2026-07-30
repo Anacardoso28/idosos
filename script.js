@@ -130,7 +130,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 cartao.style.display = "none";
             }
         });
+// --- SISTEMA DE LEITURA DE VOZ (TEXT-TO-SPEECH) ---
+    const btnOuvirModal = document.getElementById("btn-ouvir-modal");
+    let sinteseDeVoz = window.speechSynthesis;
 
+    // Função para ler o texto em voz alta
+    function lerTexto(texto) {
+        // Cancela qualquer fala que esteja acontecendo antes de começar uma nova
+        if (sinteseDeVoz.speaking) {
+            sinteseDeVoz.cancel();
+        }
+
+        // Remove as tags de HTML (<p>, <strong>, etc) para o robô não ler elas em voz alta
+        const textoLimpo = texto.replace(/<[^>]*>?/gm, '');
+
+        const fala = new SpeechSynthesisUtterance(textoLimpo);
+        fala.lang = 'pt-BR'; // Define o idioma para Português do Brasil
+        fala.rate = 0.9;     // Deixa a voz um pouquinho mais lenta para facilitar o entendimento
+        fala.pitch = 1;      // Tom de voz normal
+
+        sinteseDeVoz.speak(fala);
+    }
+
+    // Quando clicar no botão "Ouvir Texto" do modal
+    btnOuvirModal.addEventListener("click", () => {
+        // Ele vai juntar o título e o corpo do texto do modal para ler tudo
+        const textoCompleto = modalTitulo.textContent + ". " + modalCorpo.innerHTML;
+        lerTexto(textoCompleto);
+    });
+
+    // É importante fazer a voz parar de falar se o usuário fechar o modal no meio da leitura
+    btnFecharModal.addEventListener("click", () => {
+        fecharModal();
+        sinteseDeVoz.cancel(); // Para a voz
+    });
+
+    // Fazer a voz parar se fechar clicando fora do modal
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            fecharModal();
+            sinteseDeVoz.cancel(); // Para a voz
+        }
+    });
+
+    // Fazer a voz parar se apertar a tecla ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("ativo")) {
+            fecharModal();
+            sinteseDeVoz.cancel(); // Para a voz
+        }
+    });
         mensagemVazia.style.display = cartoesVisiveis === 0 ? "block" : "none";
     });
 });
