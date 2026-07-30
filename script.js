@@ -182,4 +182,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
         mensagemVazia.style.display = cartoesVisiveis === 0 ? "block" : "none";
     });
+    // --- NOVO: SISTEMA DE DESCRIÇÃO GERAL DO SITE ---
+const btnDescreverSite = document.getElementById("btn-descrever-site");
+
+// O navegador precisa carregar as vozes assincronamente.
+// Esta função procura por vozes femininas brasileiras comuns.
+function obterVozFemininaPTBR() {
+const vozesDisponiveis = sinteseDeVoz.getVoices();
+
+// Filtra apenas vozes em Português do Brasil
+const vozesBr = vozesDisponiveis.filter(voz => voz.lang === 'pt-BR' || voz.lang === 'pt_BR');
+
+// Busca por nomes que indicam vozes femininas padrão do Windows, Google ou Apple
+let vozFeminina = vozesBr.find(voz =>
+voz.name.includes('Google') || // Geralmente feminina no Chrome
+voz.name.includes('Maria') || // Windows
+voz.name.includes('Luciana') || // Apple/iOS
+voz.name.includes('Vitoria')
+);
+
+// Se não encontrar uma específica, retorna a primeira voz pt-BR disponível
+return vozFeminina || vozesBr[0];
+}
+
+// Tenta carregar as vozes assim que estiverem prontas
+sinteseDeVoz.onvoiceschanged = obterVozFemininaPTBR;
+
+btnDescreverSite.addEventListener("click", () => {
+// Se já estiver falando, para a voz e não faz mais nada (funciona como um botão Liga/Desliga)
+if (sinteseDeVoz.speaking) {
+sinteseDeVoz.cancel();
+return;
+}
+
+// O texto que o robô vai ler apresentando o site
+const textoDescricao = "Bem-vindo ao Guia Navegar Seguro. Este site foi feito para ajudar você a usar a internet sem segredos. Logo abaixo, há um campo de busca onde você pode digitar o que deseja aprender. Em seguida, temos seis cartões com dicas importantes de segurança, como: senhas fortes, links suspeitos, compras online e golpes pelo telefone. Clique no botão 'Ler Explicação Completa' em qualquer um dos cartões para abrir os detalhes de cada dica.";
+
+const falaDescricao = new SpeechSynthesisUtterance(textoDescricao);
+
+// Configurações da voz
+falaDescricao.lang = 'pt-BR';
+falaDescricao.rate = 0.95; // Velocidade um pouco mais lenta e agradável
+falaDescricao.pitch = 1.1; // Aumentar levemente o "pitch" ajuda a voz a soar mais fina/feminina
+
+// Aplica a voz feminina encontrada
+const vozEscolhida = obterVozFemininaPTBR();
+if (vozEscolhida) {
+falaDescricao.voice = vozEscolhida;
+}
+
+// Inicia a leitura
+sinteseDeVoz.speak(falaDescricao);
+});
+
 });  
+
