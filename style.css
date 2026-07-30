@@ -1,303 +1,462 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* --- VARIÁVEIS DE CORES E TAMANHO --- */
 
-    
+:root {
 
-    // --- 1. DADOS DOS MODAIS ---
+    --bg-principal: #f0f4f8;
 
-    const conteudosModais = {
+    --bg-card: #ffffff;
 
-        senha: {
+    --texto-principal: #1a202c;
 
-            titulo: "Como criar e lembrar de senhas seguras",
+    --texto-secundario: #4a5568;
 
-            texto: "<p>Para decorar senhas difíceis, <strong>a solução ideal:</strong> pense em uma frase simples que você gosta, como: <em>'Meu neto tem 10 anos'</em>.</p><p>Use as iniciais e os números para formar a senha: <strong>Mnt10a!</strong>. Fica impossível para um hacker descobrir, mas muito fácil para você lembrar!</p>"
+    --cor-primaria: #0056b3;
 
-        },
+    --cor-primaria-hover: #004494;
 
-        links: {
+    --cor-destaque: #d97706;
 
-            titulo: "O perigo mora nos links urgentes",
+    --cor-sucesso: #16a34a;
 
-            texto: "<p>Os criminosos tentam assustar criando um falso senso de urgência. Eles mandam mensagens dizendo que sua conta foi bloqueada ou que há uma compra suspeita.</p><p><strong>Regra de ouro:</strong> Nunca clique em links azuis enviados por números desconhecidos. Na dúvida, ligue para o seu gerente usando o número oficial do cartão.</p>"
+    --bg-barra: #2d3748;
 
-        },
+    --borda-foco: #2563eb;
 
-        cadeado: {
+    --overlay-cor: rgba(0, 0, 0, 0.6);
 
-            titulo: "Entendendo a Barra de Endereços",
+    --tamanho-base: 16px; /* Para controle de zoom */
 
-            texto: "<p>O cadeado fechado significa que a comunicação entre o seu celular e o site é trancada a sete chaves. Ninguém consegue interceptar o que você digita.</p><p><strong>Atenção:</strong> Apesar disso, golpistas conseguem colocar cadeados em páginas falsas. Preste atenção no nome do site escrito ali em cima.</p>"
+}
 
-        },
 
-        compras: {
 
-            titulo: "Dicas para Compras Online",
+/* --- MODO ALTO CONTRASTE --- */
 
-            texto: "<p>Antes de comprar, pesquise o nome da loja no site <strong>Reclame Aqui</strong> para ver se outras pessoas tiveram problemas.</p><p>Sempre prefira pagar com Cartão de Crédito Virtual ou PIX apenas se o recebedor tiver o nome exato da empresa.</p>"
+body.alto-contraste {
 
-        },
+    --bg-principal: #000000;
 
-        telefone: {
+    --bg-card: #121212;
 
-            titulo: "Falsas Centrais Telefônicas",
+    --texto-principal: #ffff00;
 
-            texto: "<p>Bancos verdadeiros <strong>nunca</strong> ligam pedindo a sua senha, nem pedem para você fazer um PIX de teste para 'cancelar uma fraude'.</p><p>Se receber uma ligação assim, desligue imediatamente e fale com um familiar.</p>"
+    --texto-secundario: #ffffff;
 
-        }
+    --cor-primaria: #000000;
 
-    };
+    --cor-primaria-hover: #333333;
 
+    --cor-destaque: #ffff00;
 
+    --cor-sucesso: #00ff00;
 
-    // --- 2. ACESSIBILIDADE: VOZ (SPEECH SYNTHESIS) ---
+    --bg-barra: #1a1a1a;
 
-    const sintese = window.speechSynthesis;
+    --borda-foco: #ffff00;
 
-    let vozPortugues = null;
+    --overlay-cor: rgba(255, 255, 255, 0.2);
 
+}
 
 
-    function carregarVozes() {
 
-        const vozes = sintese.getVoices();
+body.alto-contraste button, body.alto-contraste header {
 
-        vozPortugues = vozes.find(v => v.lang.includes('pt-BR') && (v.name.includes('Feminina') || v.name.includes('Google') || v.name.includes('Luciana'))) 
+    border: 2px solid #ffff00;
 
-                    || vozes.find(v => v.lang.includes('pt-BR'));
+    color: #ffff00;
 
-    }
+}
 
-    sintese.onvoiceschanged = carregarVozes;
 
 
+body.alto-contraste .card {
 
-    function falarTexto(texto, botaoReferencia) {
+    border: 2px solid #ffff00;
 
-        if (sintese.speaking) {
+}
 
-            sintese.cancel();
 
-            restaurarBotoesAudio();
 
-            return;
+/* --- RESET E BASE --- */
 
-        }
+* {
 
+    box-sizing: border-box;
 
+    margin: 0;
 
-        restaurarBotoesAudio(); 
+    padding: 0;
 
-        
+}
 
-        const mensagem = new SpeechSynthesisUtterance(texto);
 
-        mensagem.lang = 'pt-BR';
 
-        mensagem.rate = 0.95; 
+body {
 
-        if (vozPortugues) mensagem.voice = vozPortugues;
+    font-family: system-ui, -apple-system, sans-serif;
 
+    background-color: var(--bg-principal);
 
+    color: var(--texto-principal);
 
-        if (botaoReferencia) {
+    font-size: var(--tamanho-base);
 
-            botaoReferencia.innerHTML = "⏹️ Parar Áudio";
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s;
 
-            mensagem.onend = () => {
+}
 
-                restaurarBotoesAudio();
 
-            };
 
-        }
+*:focus {
 
+    outline: 3px solid var(--borda-foco);
 
+    outline-offset: 2px;
 
-        sintese.speak(mensagem);
+}
 
-    }
 
 
+/* --- BARRA DE ACESSIBILIDADE --- */
 
-    function restaurarBotoesAudio() {
+.barra-acessibilidade {
 
-        const btnSite = document.getElementById('btn-descrever-site');
+    background-color: var(--bg-barra);
 
-        const btnModal = document.getElementById('btn-ouvir-modal');
+    padding: 10px;
 
-        if (btnSite) btnSite.innerHTML = "🗣️ Descrever Site";
+    position: sticky;
 
-        if (btnModal) btnModal.innerHTML = "🔊 Ouvir Texto";
+    top: 0;
 
-    }
+    z-index: 100;
 
+}
 
 
-    document.getElementById('btn-descrever-site').addEventListener('click', function() {
 
-        const texto = "Bem-vindo ao Guia Navegar Seguro. Este site foi feito para ajudar você a usar a internet sem segredos. Logo abaixo, há um campo de busca. Em seguida, temos cartões com dicas sobre: senhas fortes, links suspeitos, cadeados de segurança, compras online e golpes por telefone. Clique em 'Ler Explicação Completa' em qualquer cartão para saber mais.";
+.container-acessibilidade {
 
-        falarTexto(texto, this);
+    display: flex;
 
-    });
+    flex-wrap: wrap;
 
+    gap: 10px;
 
+    justify-content: center;
 
-    // --- 3. ACESSIBILIDADE: TAMANHO DA FONTE E CONTRASTE ---
+    max-width: 1200px;
 
-    let tamanhoAtual = 16;
+    margin: 0 auto;
 
-    
+}
 
-    document.getElementById('btn-aumentar').addEventListener('click', () => {
 
-        if(tamanhoAtual < 24) tamanhoAtual += 2;
 
-        document.documentElement.style.setProperty('--tamanho-base', tamanhoAtual + 'px');
+.container-acessibilidade button {
 
-    });
+    background-color: #ffffff;
 
+    color: #1a202c;
 
+    border: none;
 
-    document.getElementById('btn-diminuir').addEventListener('click', () => {
+    padding: 8px 16px;
 
-        if(tamanhoAtual > 14) tamanhoAtual -= 2;
+    border-radius: 6px;
 
-        document.documentElement.style.setProperty('--tamanho-base', tamanhoAtual + 'px');
+    font-weight: bold;
 
-    });
+    cursor: pointer;
 
+    font-size: 1rem;
 
+    transition: transform 0.1s;
 
-    document.getElementById('btn-contraste').addEventListener('click', () => {
+}
 
-        document.body.classList.toggle('alto-contraste');
 
-    });
 
+.container-acessibilidade button:active {
 
+    transform: scale(0.95);
 
-    // --- 4. LÓGICA DO MODAL ---
+}
 
-    const modal = document.getElementById('modal-seguranca');
 
-    const tituloModal = document.getElementById('modal-titulo');
 
-    const corpoModal = document.getElementById('modal-corpo');
+/* --- CABEÇALHO --- */
 
-    const btnFecharModal = document.getElementById('btn-fechar-modal');
+header {
 
-    const btnOuvirModal = document.getElementById('btn-ouvir-modal');
+    text-align: center;
 
-    let textoParaLerNoModal = "";
+    padding: 2rem 1rem;
 
+    background-color: var(--cor-primaria);
 
+    color: white;
 
-    document.querySelectorAll('.btn-abrir-modal').forEach(botao => {
+    margin-bottom: 2rem;
 
-        botao.addEventListener('click', function() {
+}
 
-            const chave = this.getAttribute('data-chave');
 
-            const conteudo = conteudosModais[chave];
 
+header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
+header p { font-size: 1.2rem; }
 
-            if (conteudo) {
 
-                tituloModal.innerText = conteudo.titulo;
 
-                corpoModal.innerHTML = conteudo.texto;
+/* --- CONTEÚDO E BUSCA --- */
 
-                
+.conteudo-principal {
 
-                textoParaLerNoModal = conteudo.titulo + ". " + corpoModal.innerText;
+    max-width: 1200px;
 
-                modal.classList.add('ativo');
+    margin: 0 auto;
 
-            }
+    padding: 0 1rem;
 
-        });
+}
 
-    });
 
 
+.secao-busca {
 
-    function fecharModal() {
+    text-align: center;
 
-        modal.classList.remove('ativo');
+    margin-bottom: 2rem;
 
-        sintese.cancel();
+    background-color: var(--bg-card);
 
-        restaurarBotoesAudio();
+    padding: 1.5rem;
 
-    }
+    border-radius: 8px;
 
-    btnFecharModal.addEventListener('click', fecharModal);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 
-    
+}
 
-    modal.addEventListener('click', function(e) {
 
-        if (e.target === this) fecharModal();
 
-    });
+.secao-busca label {
 
+    display: block;
 
+    font-size: 1.2rem;
 
-    btnOuvirModal.addEventListener('click', function() {
+    margin-bottom: 10px;
 
-        falarTexto(textoParaLerNoModal, this);
+}
 
-    });
 
 
+.secao-busca input {
 
-    // --- 5. LÓGICA DE BUSCA ---
+    width: 100%;
 
-    const campoBusca = document.getElementById('campo-busca');
+    max-width: 500px;
 
-    const cartoes = document.querySelectorAll('.card');
+    padding: 12px;
 
-    const mensagemVazia = document.getElementById('mensagem-vazia');
+    font-size: 1.1rem;
 
+    border: 2px solid #ccc;
 
+    border-radius: 6px;
 
-    campoBusca.addEventListener('input', function() {
+}
 
-        const termo = this.value.toLowerCase().trim();
 
-        let encontrouAlgo = false;
 
+/* --- CARTÕES (GRID) --- */
 
+.grid-dicas {
 
-        cartoes.forEach(card => {
+    display: grid;
 
-            const palavrasChave = card.getAttribute('data-termo').toLowerCase();
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
-            const titulo = card.querySelector('h3').innerText.toLowerCase();
+    gap: 20px;
 
-            
+}
 
-            if (palavrasChave.includes(termo) || titulo.includes(termo)) {
 
-                card.style.display = 'flex';
 
-                encontrouAlgo = true;
+.card {
 
-            } else {
+    background-color: var(--bg-card);
 
-                card.style.display = 'none';
+    border-radius: 10px;
 
-            }
+    padding: 1.5rem;
 
-        });
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 
+    display: flex;
 
+    flex-direction: column;
 
-        mensagemVazia.style.display = encontrouAlgo ? 'none' : 'block';
+    transition: transform 0.2s;
 
-    });
+}
 
-});
+
+
+.card:hover { transform: translateY(-5px); }
+
+.card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--cor-primaria); }
+
+.card p { margin-bottom: 15px; color: var(--texto-secundario); flex-grow: 1; line-height: 1.5; }
+
+
+
+.btn-abrir-modal {
+
+    background-color: var(--cor-destaque);
+
+    color: white;
+
+    border: none;
+
+    padding: 12px;
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    width: 100%;
+
+}
+
+
+
+/* --- MODAL --- */
+
+.modal-overlay {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0; left: 0; width: 100%; height: 100%;
+
+    background-color: var(--overlay-cor);
+
+    z-index: 1000;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 1rem;
+
+}
+
+
+
+.modal-overlay.ativo {
+
+    display: flex;
+
+}
+
+
+
+.modal-content {
+
+    background-color: var(--bg-card);
+
+    padding: 2rem;
+
+    border-radius: 12px;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+
+
+.btn-fechar {
+
+    background-color: #ef4444;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    float: right;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+#modal-titulo { color: var(--cor-primaria); margin-bottom: 15px; font-size: 1.8rem; }
+
+
+
+.btn-acessibilidade {
+
+    background-color: var(--cor-primaria);
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    margin-bottom: 20px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+#modal-corpo { font-size: 1.1rem; line-height: 1.6; }
+
+#modal-corpo p { margin-bottom: 15px; }
+
+
+
+footer { text-align: center; padding: 2rem 1rem; background-color: var(--bg-barra); color: white; margin-top: 3rem; }
+
