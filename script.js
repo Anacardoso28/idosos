@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
         mensagemVazia.style.display = cartoesVisiveis === 0 ? "block" : "none";
     });
+    
     // --- NOVO: SISTEMA DE DESCRIÇÃO GERAL DO SITE ---
 const btnDescreverSite = document.getElementById("btn-descrever-site");
 
